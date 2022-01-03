@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin: 0 0 1em 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +10,38 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.about-headshot {
+  border: 2px solid #44d;
+  border-radius: 50%;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  font-size: 2em;
+    text-align: center;
+    color: black;
+   -webkit-text-fill-color: #858282; /* Will override color (regardless of order) */
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
+    font-weight: 400;
+    margin: 0 0 0.5em 0; /* Bottom margin */
+}
+
+.content {
+  padding-top: 7em;
+  padding-bottom: 2em;
+}
+
+.resumeViewer {
+  width: 100%;
+  height: 80vh;
 }
