@@ -1,6 +1,7 @@
 //Basic react deps
 import React from "react";
 import ReactDOM from "react-dom";
+import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import "./fonts/Raleway-Regular.ttf";
 import "./fonts/OpenSans-Regular.ttf";
 import "./fonts/Helvetica.ttf";
@@ -139,8 +140,23 @@ class Index extends React.Component {
     };
 }
 
+const theme = createMuiTheme();
 
-ReactDOM.render( <Index />, document.getElementById('root'));
+const useStyles = makeStyles((theme) => {
+  root: {
+    // some CSS that access to theme
+  }
+});
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Index />
+    </ThemeProvider>
+  )
+}
+
+ReactDOM.render( <App />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
