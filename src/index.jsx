@@ -1,7 +1,7 @@
 //Basic react deps
 import React from "react";
 import ReactDOM from "react-dom";
-import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
 import "./fonts/Raleway-Regular.ttf";
 import "./fonts/OpenSans-Regular.ttf";
 import "./fonts/Helvetica.ttf";
@@ -140,20 +140,16 @@ class Index extends React.Component {
     };
 }
 
-const theme = createMuiTheme();
-
-const useStyles = makeStyles((theme) => {
-  root: {
-    // some CSS that access to theme
-  }
-});
+const theme = createTheme();
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Index />
-    </ThemeProvider>
-  )
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <Index />
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 }
 
 ReactDOM.render( <App />, document.getElementById('root'));

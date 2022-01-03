@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 import { saveAs } from "file-saver";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import mutateState from "./mutateState.jsx";
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 

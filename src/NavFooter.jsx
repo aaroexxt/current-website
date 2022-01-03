@@ -1,12 +1,9 @@
-import AppBar from "@material-ui/core/AppBar"
-import Container from "@material-ui/core/Container"
-import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
-import Image from 'material-ui-image'
+import AppBar from "@mui/material/AppBar"
+import Typography from "@mui/material/Typography"
 
 //Types and styling
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = {
     root: {
@@ -31,7 +28,7 @@ function NavFooter(props) {
         <div className={classes.root}>
             <AppBar
                 position="static"
-                color="primary-light"
+                color="inherit"
                 className={classes.appbar}
             >
                 <Typography
