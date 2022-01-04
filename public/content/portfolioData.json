@@ -1,0 +1,19 @@
+[
+    {
+        "dirPrefix": "zenith",
+        "image": "zenithAssembled.jpg",
+        "title": "Zenith Rocketry",
+        "description": "Rocketry is cool woah",
+        "date": "Fall 2021",
+        "markdown": "test.md"
+    },
+    {
+        "dirPrefix": "zenith",
+        "image": "rocketALaunch.jpg",
+        "title": "Zenith Rocketry 2",
+        "description": "Rocketry is cool woah",
+        "date": "Fall 2021",
+        "markdown": "test 2dsflskdfh.md"
+    }
+]
+  

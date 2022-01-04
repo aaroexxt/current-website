@@ -1,6 +1,7 @@
 //Basic react deps
 import React from "react";
 import ReactDOM from "react-dom";
+import Box from "@mui/material/Box";
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
 import "./fonts/Raleway-Regular.ttf";
 import "./fonts/OpenSans-Regular.ttf";
@@ -17,6 +18,8 @@ import About from './about.jsx';
 //Util functions
 import mutateState from "./mutateState.jsx";
 import reportWebVitals from './reportWebVitals';
+
+const theme = createTheme();
 
 class Index extends React.Component {
   constructor(props) {
@@ -74,7 +77,6 @@ class Index extends React.Component {
         content = (
           <About 
           pageChange={(name) => {
-            console.log("NAMEFIRE",name)
             this.handleMenuChange(null, this.nameToMenuIdx(name))
           }}/>
         );
@@ -113,17 +115,21 @@ class Index extends React.Component {
         break;
       }
 
-      return [
-        <NavHeader
-          selected={this.state.menu.selected}
-          tabs={this.state.menu.options}
-          handleChange={this.handleMenuChange}
-        />,
-        <div className="content">
-          {content}
-        </div>,
-        <NavFooter/>
-      ];
+      return (
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <Box className="content">
+              {content}
+            </Box>
+            <NavHeader
+              selected={this.state.menu.selected}
+              tabs={this.state.menu.options}
+              handleChange={this.handleMenuChange}
+            />
+            <NavFooter/>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      )
     }
 
     menuIdxToName = (idx) => {
@@ -140,19 +146,7 @@ class Index extends React.Component {
     };
 }
 
-const theme = createTheme();
-
-function App() {
-  return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <Index />
-      </ThemeProvider>
-    </StyledEngineProvider>
-  );
-}
-
-ReactDOM.render( <App />, document.getElementById('root'));
+ReactDOM.render( <Index />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

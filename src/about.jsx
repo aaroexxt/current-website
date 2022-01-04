@@ -5,9 +5,9 @@ const styles = (theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    paddingLeft: theme.spacing(30),
-    paddingRight: theme.spacing(30),
-    fontSize: "1.5em"
+    paddingLeft: "10vw",
+    paddingRight: "10vw",
+    fontSize: "1.5vw"
   }
 });
 
@@ -18,6 +18,7 @@ function eventPageChange(e, fn, arg) {
 
 function About(props) {
   const { classes, pageChange } = props;
+  window.scrollTo(0, 0);
   return (
     <div className={classes.root}>
       <h6 className="title">About me!</h6>
