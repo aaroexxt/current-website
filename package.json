@@ -9,24 +9,29 @@
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.7",
     "@mui/styles": "^5.2.3",
+    "@react-pdf-viewer/core": "^3.0.0",
+    "@react-pdf-viewer/default-layout": "^3.0.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "body-scroll-lock": "^4.0.0-beta.0",
     "file-saver": "^2.0.5",
     "material-ui-image": "^3.3.2",
+    "pdfjs-dist": "^2.11.338",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-markdown": "^7.1.2",
     "react-medium-image-zoom": "^4.3.5",
     "react-scripts": "4.0.3",
     "remark-gfm": "^3.0.1",
+    "remark-unwrap-images": "^3.0.1",
+    "video-react": "^0.15.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.1.11"
   }
 }

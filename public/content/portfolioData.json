@@ -6,6 +6,15 @@
         "description": "Building an advanced active stability system for model rockets",
         "date": "Fall 2021",
         "markdown": "zenith.md"
+    },
+    {
+        "dirPrefix": "ebike",
+        "image": "ebike.png",
+        "title": "Custom Electric Bicycle",
+        "description": "Designing and manufacturing a custom powertrain for an electric bike",
+        "date": "November 2019",
+        "markdown": "ebike.md"
     }
+
 ]
   

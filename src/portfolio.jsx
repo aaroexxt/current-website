@@ -9,11 +9,26 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 
+//Image zooming support
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
+//Video support
+import {
+  Player,
+  ControlBar,
+  ReplayControl,
+  ForwardControl,
+  CurrentTimeDisplay,
+  TimeDivider,
+  PlaybackRateMenuButton,
+  VolumeMenuButton
+} from 'video-react';
+import 'video-react/dist/video-react.css'; // import css
+
 //Markdown rendering packages
 import ReactMarkdown from 'react-markdown'
+import remarkUnwrapImages from 'remark-unwrap-images'
 import gfm from 'remark-gfm'
 import mutateState from './mutateState';
 
@@ -60,7 +75,16 @@ function PortfolioItem(props) {
   );
 }
 
-const ImageHoverZoom = props => {
+const CustomMarkdownImage = props => {
+  let movieExtensions = ["mp4", "webm", "ogg"];
+  if (props.hasOwnProperty("src") && movieExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a movie?
+    return PlayableVideo(props);
+  }
+  
+  return ZoomableImage(props);
+};
+
+const ZoomableImage = props => {
   const [isZoomed, setIsZoomed] = useState(false)
 
   const handleImgLoad = useCallback(() => {
@@ -75,11 +99,34 @@ const ImageHoverZoom = props => {
       <ControlledZoom isZoomed={isZoomed} onZoomChange={handleZoomChange}>
         <div className={"zoom-container"}>
           <img {...props}/>
-          { isZoomed ? (<p > {props.alt} </p>) : null }
+          { (isZoomed && props.hasOwnProperty("alt") && props.alt != "") ? (<p > {props.alt} </p>) : null }
         </div>
       </ControlledZoom>
   );
-};
+}
+
+const PlayableVideo = props => {
+  return (
+    <Player
+      playsInline
+      fluid={false}
+      width={"21%"}
+      height={"auto"}
+      autoPlay
+      loop
+      muted={true}
+    >
+      <source {...props}/>
+
+      <ControlBar>
+        <CurrentTimeDisplay order={4.1} />
+        <TimeDivider order={4.2} />
+        <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+        <VolumeMenuButton disabled />
+      </ControlBar>
+    </Player>
+  )
+}
 
 export default class Portfolio extends React.Component {
   constructor(props) {
@@ -186,8 +233,11 @@ export default class Portfolio extends React.Component {
           <hr style={{width: "40%"}}></hr>
           <div className={"markdownContainer"}>
             <ReactMarkdown
-              remarkPlugins={[gfm]}
-              components={{img: ImageHoverZoom}}
+              remarkPlugins={
+                [gfm],
+                [remarkUnwrapImages]
+              }
+              components={{img: CustomMarkdownImage}}
             >
               {this.state.singleProjectMarkdown}
             </ReactMarkdown>

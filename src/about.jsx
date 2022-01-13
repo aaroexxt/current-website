@@ -11,11 +11,6 @@ const styles = (theme) => ({
   }
 });
 
-function eventPageChange(e, fn, arg) {
-  e.preventDefault()
-  fn(arg)
-}
-
 function About(props) {
   const { classes, pageChange } = props;
   window.scrollTo(0, 0);
