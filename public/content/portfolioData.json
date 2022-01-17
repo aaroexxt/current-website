@@ -10,7 +10,7 @@
     {
         "dirPrefix": "ebike",
         "image": "ebike.png",
-        "title": "Custom Electric Bicycle",
+        "title": "Custom Electric Bike",
         "description": "Designing and manufacturing a custom powertrain for an electric bike",
         "date": "November 2019",
         "markdown": "ebike.md"

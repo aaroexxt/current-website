@@ -76,10 +76,10 @@ function PortfolioItem(props) {
 }
 
 const CustomMarkdownImage = props => {
-  let movieExtensions = ["mp4", "webm", "ogg"];
-  if (props.hasOwnProperty("src") && movieExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a movie?
-    return PlayableVideo(props);
-  }
+  let movieExtensions = ["mp4", "webm", "ogg", "mov"];
+  // if (props.hasOwnProperty("src") && movieExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a movie?
+  //   return PlayableVideo(props);
+  // }
   
   return ZoomableImage(props);
 };
@@ -99,7 +99,7 @@ const ZoomableImage = props => {
       <ControlledZoom isZoomed={isZoomed} onZoomChange={handleZoomChange}>
         <div className={"zoom-container"}>
           <img {...props}/>
-          { (isZoomed && props.hasOwnProperty("alt") && props.alt != "") ? (<p > {props.alt} </p>) : null }
+          {<p className={(isZoomed && props.hasOwnProperty("alt") && props.alt != "") ? "zoomed-text" : null}> {props.alt} </p>}
         </div>
       </ControlledZoom>
   );
@@ -124,6 +124,8 @@ const PlayableVideo = props => {
         <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
         <VolumeMenuButton disabled />
       </ControlBar>
+
+      
     </Player>
   )
 }
