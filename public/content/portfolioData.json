@@ -14,6 +14,14 @@
         "description": "Designing and manufacturing a custom powertrain for an electric bike",
         "date": "November 2019",
         "markdown": "ebike.md"
+    },
+    {
+        "dirPrefix": "reflowoven",
+        "image": "ovenFront.jpg",
+        "title": "Homemade Reflow Oven",
+        "description": "Building a custom reflow oven to speed PCB development",
+        "date": "Winter 2020",
+        "markdown": "oven.md"
     }
 
 ]

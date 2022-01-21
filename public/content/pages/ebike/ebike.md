@@ -99,7 +99,9 @@ I also wrote a custom library to display large characters on the screen, on a 20
 
 Once assembled over the course of several months, I finished putting everything together. This started with just a drivetrain powerup:
 
-!["Drivetrain powerup"]
+![Drivetrain powerup](drivetrainPowerup.mov)
 
+Once I had signs of life, I attached the pulley system along with a simple 3D printed tensioner, and was able to get a full wheel spin allowing me to ride the bike!
 
+![Wheel spinning - success!](wheelSpinning.mov)
 

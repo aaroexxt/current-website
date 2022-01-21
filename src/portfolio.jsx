@@ -244,6 +244,13 @@ export default class Portfolio extends React.Component {
               {this.state.singleProjectMarkdown}
             </ReactMarkdown>
           </div>
+          <br></br>
+          <Button
+            onClick={(e) => {e.preventDefault(); this.handleProjectReturn()}}
+            variant="outlined"
+          >
+            Return to All Projects
+          </Button>
         </center>
       )
     }
