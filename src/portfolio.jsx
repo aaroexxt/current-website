@@ -170,14 +170,18 @@ export default class Portfolio extends React.Component {
     let response = await fetch(prefix+file);
     if (response.ok) {
       response.text().then(data => {
-        mutateState(this, {
-          singleProjectMarkdown: 
-            //Transform image URLs in markdown to include path
-            data.replace(/(!\[.*?\]\()(.+?)(\))/g, function(whole, a, b, c) {
-              if (b.indexOf("content/pages/") == -1) return a + prefix + b + c;
-              return a+b+c; //no transformation necessary
+        if (data.indexOf("<html lang=\"en\">") == -1) { //make sure we haven't fetched a page by accident
+          mutateState(this, {
+            singleProjectMarkdown: 
+              //Transform image URLs in markdown to include path
+              data.replace(/(!\[.*?\]\()(.+?)(\))/g, function(whole, a, b, c) {
+                if (b.indexOf("content/pages/") == -1) return a + prefix + b + c;
+                return a+b+c; //no transformation necessary
+            })
           })
-        })
+        } else {
+          mutateState(this, {singleProjectMarkdown: "# 404 error loading '"+file+"'"})
+        }
 
       }).catch(e => {
         mutateState(this, {singleProjectMarkdown: "# Parsing error loading '"+file+"'"})
