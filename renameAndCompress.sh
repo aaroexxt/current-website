@@ -11,6 +11,8 @@
 # - imagemagick
 # - exiftool
 
+# sample run command: bash renameAndCompress.sh -f public/content/pages -r
+
 #!/bin/bash
 
 # Default arguments: gen DB and do not delete
@@ -114,7 +116,7 @@ optimize_dir () {
             # then, check for full size copy for supported file extensions
             containsElement "$extension" "${optimize_exts[@]}"
             if [[ $? -eq "0" ]]; then
-                if [[ ${pathname} != *"_original"* ]] 2> /dev/null && [[ ${pathname} != *"_thumb"* ]] ; then
+                if [[ ${pathname} != *"_original"* ]] 2> /dev/null 2>&1 && [[ ${pathname} != *"_thumb"* ]] ; then
                     original_path="$basepath/`echo $filename`_original.$extension"
                     thumb_path_image="$basepath/`echo $filename`_thumb.$extension" # images follow original extension
                     thumb_path_video="$basepath/`echo $filename`_thumb.jpg" #videos are always jpg
@@ -127,33 +129,33 @@ optimize_dir () {
 
                             png)
                                 # Generate large optimized version of photo
-                                convert "${original_path}" -resize 1920x1080\> "${pathname}"
-                                pngquant --speed 1 --force --quality=65-100 --strip --skip-if-larger --verbose --output "${pathname}" "${pathname}"
+                                convert "${original_path}" -resize 1920x1080\> "${pathname}" > /dev/null 2>&1
+                                pngquant --speed 1 --force --quality=65-100 --strip --skip-if-larger --verbose --output "${pathname}" "${pathname}" > /dev/null 2>&1
 
                                 # Generate thumbnail image
-                                convert "${pathname}" -resize 320x180\> "${thumb_path_image}"
-                                pngquant --speed 1 --force --quality=20-100 --strip --skip-if-larger --verbose --output "${thumb_path_image}" "${thumb_path_image}"
+                                convert "${pathname}" -resize 320x180\> "${thumb_path_image}" > /dev/null 2>&1
+                                pngquant --speed 1 --force --quality=20-100 --strip --skip-if-larger --verbose --output "${thumb_path_image}" "${thumb_path_image}" > /dev/null 2>&1
                                 ;;
                             
                             jpg|jpeg)
                                 # Generate large optimized version of photo
-                                convert "$original_path" -resize 1920x1080\> "${pathname}"
-                                jpegoptim --all-progressive --max=75 "${pathname}"
+                                convert "$original_path" -resize 1920x1080\> "${pathname}" > /dev/null 2>&1
+                                jpegoptim --all-progressive --max=75 "${pathname}" > /dev/null 2>&1
 
                                 # Generate thumbnail image
-                                convert "${pathname}" -resize 320x180\> "${thumb_path_image}"
-                                jpegoptim --all-progressive --max=20 "${pathname}"
+                                convert "${pathname}" -resize 320x180\> "${thumb_path_image}" > /dev/null 2>&1
+                                jpegoptim --all-progressive --max=20 "${pathname}" > /dev/null 2>&1
                                 ;;
 
                             # For video formats, scale the video down by half and generate thumbnail
                             mov)
-                                ffmpeg -hide_banner -loglevel error -y -i "${original_path}" -vf "scale=trunc(iw/4)*2:trunc(ih/4)*2" -c:v libx264 -crf 20 "${pathname}"
-                                ffmpeg -hide_banner -loglevel error -i "${pathname}" -frames:v 1 -vf scale=320:-2 -q:v 3 ${thumb_path_video}
+                                ffmpeg -hide_banner -loglevel error -y -i "${original_path}" -vf "scale=trunc(iw/4)*2:trunc(ih/4)*2" -c:v libx264 -crf 20 "${pathname}" > /dev/null 2>&1
+                                ffmpeg -hide_banner -loglevel error -i "${pathname}" -frames:v 1 -vf scale=320:-2 -q:v 3 "${thumb_path_video}" > /dev/null 2>&1
                                 ;;
 
                             mp4)
-                                ffmpeg -hide_banner -loglevel error -y -i "${original_path}" -vf "scale=trunc(iw/4)*2:trunc(ih/4)*2" -c:v libx264 -crf 20 "${pathname}"
-                                ffmpeg -hide_banner -loglevel error -i "${pathname}" -frames:v 1 -vf scale=320:-2 -q:v 3 ${thumb_path_video}
+                                ffmpeg -hide_banner -loglevel error -y -i "${original_path}" -vf "scale=trunc(iw/4)*2:trunc(ih/4)*2" -c:v libx264 -crf 20 "${pathname}" > /dev/null 2>&1
+                                ffmpeg -hide_banner -loglevel error -i "${pathname}" -frames:v 1 -vf scale=320:-2 -q:v 3 "${thumb_path_video}" > /dev/null 2>&1
                                 ;;
 
                             *)
@@ -161,7 +163,7 @@ optimize_dir () {
                                 ;;
                         esac
 
-                        exiftool -overwrite_original -all= -tagsfromfile @ -Orientation ${pathname} # remove EXIF data
+                        exiftool -overwrite_original -all= -TagsFromFile @ -Orientation -ColorSpaceTags ${pathname} # remove EXIF data
 
                         compressCount=$((compressCount+1))
                     fi
@@ -193,7 +195,7 @@ cleanup_dir () {
 
             # Move any original back onto its target
             if [[ "$filename" == *"_original"* ]]; then
-                original_filename=`echo ${filename} | cut -f1 -d"_"`
+                original_filename=`echo ${filename} | sed 's|\(.*\)_.*|\1|' `
                 original_path="$basepath/`echo $original_filename`.$extension"
 
                 # Move original file back to its proper path

@@ -46,88 +46,163 @@ function createInstance() {
 
 
 //Single portfolio card containing some basic information about the project
-function PortfolioItem(props) {
-  let imagePath = "content/pages/"+props.data.dirPrefix+"/"+props.data.image;
+class PortfolioItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imagePath: "content/pages/"+props.data.dirPrefix+"/"+props.data.image,
+      oProps: props,
+      imageLoaded: false
+    }
+    mutateState(this, {thumbPath: this.state.imagePath.replace(/(\.[\w\d_-]+)$/i, '_thumb$1')})
+  }
 
-  return (
-    <Card
-      sx={{ maxWidth: 750 }}
-      elevation={5}
-      onClick={(e) => {e.preventDefault(); props.handleClick(props.data)}} //when card is clicked, call click handler
-    >
-      <CardActionArea>
+  handleImageLoaded(newState) {
+    mutateState(this, {imageLoaded: newState})
+  }
+
+  render() {
+    let props = this.state.oProps;
+    return (
+      <Card
+        sx={{ maxWidth: 750 }}
+        elevation={5}
+        onClick={(e) => {e.preventDefault(); props.handleClick(props.data)}} //when card is clicked, call click handler
+      >
+        {(!this.state.imageLoaded) ? (
         <CardMedia
           component="img"
           height="300"
-          image={imagePath}
+          image={this.state.thumbPath}
           alt={props.data.title}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {props.data.title} ({props.data.date})
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {props.data.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  );
-}
+        /> ) : null}
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="300"
+            image={this.state.imagePath}
+            alt={props.data.title}
+            className={!this.state.imageLoaded ? "invisible" : ""}
+            onLoad={() => {this.handleImageLoaded(true)}}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {props.data.title} ({props.data.date})
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {props.data.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    );
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.imageLoaded) {
+      return true;
+    }
+    return false;
+  }
+};
 
 const CustomMarkdownImage = props => {
   let movieExtensions = ["mp4", "webm", "ogg", "mov"];
-  // if (props.hasOwnProperty("src") && movieExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a movie?
-  //   return PlayableVideo(props);
-  // }
+  if (props.hasOwnProperty("src") && movieExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a movie?
+    return <PlayableVideo {...props}/>;
+  }
   
-  return ZoomableImage(props);
+  return (
+    <ZoomableImage {...props}/>
+  )
 };
 
-const ZoomableImage = props => {
-  const [isZoomed, setIsZoomed] = useState(false)
+class ZoomableImage extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const handleImgLoad = useCallback(() => {
-    setIsZoomed(true)
-  }, [])
+    this.state = {
+      isZoomed: false,
+      oProps: props,
+      imageLoaded: false,
+      imageSRC: "",
+      previewSRC: ""
+    }
 
-  const handleZoomChange = useCallback(shouldZoom => {
-    setIsZoomed(shouldZoom)
-  }, [])
+    if (props.hasOwnProperty("src")) {
+      mutateState(this, {
+        imageSRC: props.src,
+        previewSRC: props.src.replace(/(\.[\w\d_-]+)$/i, '_thumb$1')
+      })
+    }
+  }
 
-  return (
-      <ControlledZoom isZoomed={isZoomed} onZoomChange={handleZoomChange}>
-        <div className={"zoom-container"}>
-          <img {...props}/>
-          {<p className={(isZoomed && props.hasOwnProperty("alt") && props.alt != "") ? "zoomed-text" : null}> {props.alt} </p>}
-        </div>
-      </ControlledZoom>
-  );
+  handleImgLoad() {
+    mutateState(this, {imageLoaded: true})
+  }
+
+  handleZoomChange(zoomState) {
+    if (this.state.imageLoaded) {
+      mutateState(this, {isZoomed: zoomState})
+    }
+  }
+
+  render() {
+    return (
+        <ControlledZoom isZoomed={this.state.isZoomed} onZoomChange={(zoomState) => {this.handleZoomChange(zoomState)}}>
+          <div className={"zoom-container"}>
+
+            <img className={(!this.state.imageLoaded) ? "invisible" : ""} onLoad={() => this.handleImgLoad()} {...this.state.oProps}/>
+            {(!this.state.imageLoaded) ? <img src={this.state.previewSRC}/> : null}
+
+            {<p className={(this.state.isZoomed && this.state.oProps.hasOwnProperty("alt") && this.state.oProps.alt != "") ? "zoomed-text" : null}> {this.state.oProps.alt} </p>}
+          </div>
+        </ControlledZoom>
+    );
+  }
 }
 
-const PlayableVideo = props => {
-  return (
-    <Player
-      playsInline
-      fluid={false}
-      width={"21%"}
-      height={"auto"}
-      autoPlay
-      loop
-      muted={true}
-    >
-      <source {...props}/>
+class PlayableVideo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      oProps: props,
+      videoSRC: "",
+      previewSRC: ""
+    }
 
-      <ControlBar>
-        <CurrentTimeDisplay order={4.1} />
-        <TimeDivider order={4.2} />
-        <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
-        <VolumeMenuButton disabled />
-      </ControlBar>
+    if (props.hasOwnProperty("src")) {
+      mutateState(this, {
+        videoSRC: props.src,
+        previewSRC: props.src.replace(/(\.[\w\d_-]+)$/i, '_thumb.jpg')
+      })
+    }
+  }
 
-      
-    </Player>
-  )
+  render() {
+    return (
+      <Player
+        playsInline
+        fluid={false}
+        height={"200px"}
+        autoPlay
+        loop
+        poster={this.state.previewSRC}
+        muted={true}
+      >
+        <source {...this.state.oProps}/>
+
+        <ControlBar>
+          <CurrentTimeDisplay order={4.1} />
+          <TimeDivider order={4.2} />
+          <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+          <VolumeMenuButton disabled />
+        </ControlBar>
+
+        
+      </Player>
+    )
+  }
 }
 
 export default class Portfolio extends React.Component {

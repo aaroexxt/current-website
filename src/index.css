@@ -115,3 +115,7 @@ iframe {
 .zoomed-text {
   opacity: 1 !important;
 }
+
+.invisible {
+  display: none !important;
+}
