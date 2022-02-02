@@ -84,7 +84,7 @@ class NavHeader extends React.Component {
         <AppBar position="static" color="inherit">
           <Toolbar>
               <Typography className={classes.title} variant="h4">
-                Aaron Becker
+                <span style={{cursor: "pointer"}} onClick={(e) => {e.preventDefault(); this.props.resetToPortfolio()}}>Aaron Becker</span>
                 <Typography className={classes.subtitle}>
                   Undergraduate at the Massachusetts Institute of Technology
                 </Typography>

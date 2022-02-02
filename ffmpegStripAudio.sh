@@ -1,1 +1,0 @@
-ffmpeg -i input_file.mp4 -vcodec copy -an output_file.mp4

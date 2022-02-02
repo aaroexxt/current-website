@@ -19,7 +19,21 @@ import About from './about.jsx';
 import mutateState from "./mutateState.jsx";
 import reportWebVitals from './reportWebVitals';
 
-const theme = createTheme();
+//Local storage support
+import { localStorageSave, localStorageGet } from './localStorageUtils';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Helvetica Neue',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(',')
+  }
+});
 
 class Index extends React.Component {
   constructor(props) {
@@ -35,6 +49,8 @@ class Index extends React.Component {
         selected: 0
       }
     };
+
+    this.componentCleanup = this.componentCleanup.bind(this);
 
   };
 
@@ -56,9 +72,34 @@ class Index extends React.Component {
     }
   };
 
-  render() {
-    console.log("CurrentState: " + this.state.menu.selected);
+  componentDidMount() {
+    //Check if there is a preserved state, and if so, restore it otherwise perform first-time setup
+    const retreivedState = localStorageGet("ambeckercom-menuState");
 
+    if (retreivedState) {
+      try {
+        if (retreivedState.menu.options.length > 0) { //make sure menu is in a valid state
+          this.setState(retreivedState);
+        }
+      } catch(e) {}
+    }
+
+    //Setup componentCleanup handler for page reload
+    window.addEventListener('beforeunload', this.componentCleanup);
+  }
+
+  componentWillUnmount() {
+    this.componentCleanup();
+    window.removeEventListener('beforeunload', this.componentCleanup); // remove the event handler for normal unmounting
+  }
+  
+  //Called before page is reloaded or component is unmounted
+  componentCleanup() {
+    //Preserve our state in localStorage
+    localStorageSave("ambeckercom-menuState", this.state)
+  }
+
+  render() {
     var content;
     switch (this.state.menu.selected) {
       /*********
@@ -76,9 +117,10 @@ class Index extends React.Component {
       case this.nameToMenuIdx("About"):
         content = (
           <About 
-          pageChange={(name) => {
-            this.handleMenuChange(null, this.nameToMenuIdx(name))
-          }}/>
+            pageChange={(name) => {
+              this.handleMenuChange(null, this.nameToMenuIdx(name))
+            }}
+          />
         );
         break;
 
@@ -125,6 +167,9 @@ class Index extends React.Component {
               selected={this.state.menu.selected}
               tabs={this.state.menu.options}
               handleChange={this.handleMenuChange}
+              resetToPortfolio={() => {
+                this.handleMenuChange(null, this.nameToMenuIdx("Portfolio")); //reset top menu state
+              }}
             />
             <NavFooter/>
           </ThemeProvider>

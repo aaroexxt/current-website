@@ -36,7 +36,7 @@ function NavFooter(props) {
                     color="inherit"
                     className={classes.typography}
                 >
-                Site Designed by Aaron Becker, © {new Date().getFullYear()} | <a target="_blank" href="https://www.linkedin.com/in/aaron-m-becker/">LinkedIn</a> | <a target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a>
+                Site Designed by Aaron Becker, © {new Date().getFullYear()} | <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/aaron-m-becker/">LinkedIn</a> | <a target="_blank" rel="noreferrer" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a>
                 </Typography>
             </AppBar>
         </div>

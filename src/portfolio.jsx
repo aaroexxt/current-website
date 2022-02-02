@@ -32,6 +32,9 @@ import remarkUnwrapImages from 'remark-unwrap-images'
 import gfm from 'remark-gfm'
 import mutateState from './mutateState';
 
+//Local storage support
+import { localStorageSave, localStorageGet } from './localStorageUtils';
+
 function createInstance() {
   var func = null;
   return {
@@ -68,23 +71,25 @@ class PortfolioItem extends React.Component {
         sx={{ maxWidth: 750 }}
         elevation={5}
         onClick={(e) => {e.preventDefault(); props.handleClick(props.data)}} //when card is clicked, call click handler
-      >
-        {(!this.state.imageLoaded) ? (
-        <CardMedia
-          component="img"
-          height="300"
-          image={this.state.thumbPath}
-          alt={props.data.title}
-        /> ) : null}
+      > 
         <CardActionArea>
+          {(!this.state.imageLoaded) ? ( //Show low-quality card image initially
+            <CardMedia
+              component="img"
+              height="300"
+              image={this.state.thumbPath}
+              alt={props.data.title}
+            /> ) : null
+          }
           <CardMedia
             component="img"
             height="300"
             image={this.state.imagePath}
             alt={props.data.title}
-            className={!this.state.imageLoaded ? "invisible" : ""}
-            onLoad={() => {this.handleImageLoaded(true)}}
+            className={!this.state.imageLoaded ? "invisible" : ""} // Set to invisible while loading
+            onLoad={() => {this.handleImageLoaded(true)}} //Call image handler when fully loaded
           />
+
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {props.data.title} ({props.data.date})
@@ -153,6 +158,7 @@ class ZoomableImage extends React.Component {
           <div className={"zoom-container"}>
 
             <img className={(!this.state.imageLoaded) ? "invisible" : ""} onLoad={() => this.handleImgLoad()} {...this.state.oProps}/>
+            
             {(!this.state.imageLoaded) ? <img src={this.state.previewSRC}/> : null}
 
             {<p className={(this.state.isZoomed && this.state.oProps.hasOwnProperty("alt") && this.state.oProps.alt != "") ? "zoomed-text" : null}> {this.state.oProps.alt} </p>}
@@ -221,9 +227,7 @@ export default class Portfolio extends React.Component {
       singleProjectMarkdown: "" //actual markdown from selected project
     }
 
-    //Perform initial setup to load JSON configuration file
-    this.setup()
-
+    this.componentCleanup = this.componentCleanup.bind(this);
   };
 
   //Load JSON file with project information
@@ -255,14 +259,14 @@ export default class Portfolio extends React.Component {
             })
           })
         } else {
-          mutateState(this, {singleProjectMarkdown: "# 404 error loading '"+file+"'"})
+          mutateState(this, {singleProjectMarkdown: "# This project is currently under construction! \n Error: mdNotFound '"+file+"'"})
         }
 
       }).catch(e => {
-        mutateState(this, {singleProjectMarkdown: "# Parsing error loading '"+file+"'"})
+        mutateState(this, {singleProjectMarkdown: "# This project is currently under construction! \n Error: mdParseError '"+file+"'"})
       })
     } else {
-      mutateState(this, {singleProjectMarkdown: "# Fetch error loading '"+file+"'"})
+      mutateState(this, {singleProjectMarkdown: "# This project is currently under construction! \n Error: mdFetchErr '"+file+"'"})
     }
   }
 
@@ -272,8 +276,48 @@ export default class Portfolio extends React.Component {
     this.loadMarkdownFile("content/pages/"+projectData.dirPrefix+"/",projectData.markdown);
   }
 
+  //Handle the 'return to projects view'
   handleProjectReturn() {
     mutateState(this, {singleProjectView: false});
+  }
+
+
+  componentDidMount() {
+    //Check if there is a preserved state, and if so, restore it otherwise perform first-time setup
+    const retreivedState = localStorageGet("ambeckercom-portfolioState");
+
+    const stateInvalid = () => {
+      // Perform initial setup to load JSON configuration file
+     this.setup()
+   }
+
+    if (retreivedState) {
+      try {
+        if (!retreivedState.loading) {
+          this.setState(retreivedState);
+        } else {
+          stateInvalid();
+        }
+      } catch(e) {
+        stateInvalid();
+      }
+    } else {
+      stateInvalid();
+    }
+
+    //Setup componentCleanup handler for page reload
+    window.addEventListener('beforeunload', this.componentCleanup);
+  }
+
+  componentWillUnmount() {
+    this.componentCleanup();
+    window.removeEventListener('beforeunload', this.componentCleanup); // remove the event handler for normal unmounting
+  }
+
+  //Called before page is reloaded or component is unmounted
+  componentCleanup() {
+    //Preserve our state in localStorage
+    localStorageSave("ambeckercom-portfolioState", this.state)
   }
 
   render() {
@@ -334,35 +378,56 @@ export default class Portfolio extends React.Component {
       )
     }
 
+    //Create empty array to populate with projects
+    let categories = this.state.itemData.categories;
+    let sorted = categories.map((itemName, index) => { //object with array of projects
+      return new Array()
+    })
+
+    //Add projects into each category
+    for (let i=0; i<this.state.itemData.projects.length; i++) {
+      let project = this.state.itemData.projects[i];
+
+      if (project.hasOwnProperty("category")) {
+        let category = project.category;
+        let categoryIndex = categories.indexOf(category);
+
+        if (categoryIndex < 0) { //if we haven't matched an existing category
+          sorted[categories.length-1].push(project); //push to last category
+        } else {
+          sorted[categoryIndex].push(project);
+        }
+      } else {
+        sorted[categories.length-1].push(project); //push to last category
+      }
+    }
+
     //Card view, with all projects laid out
     return (
       <div className="home">
         <Box sx={{ flexGrow: 1, paddingLeft: "1em", paddingRight: "1em" }}>
-          <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {this.state.itemData.map((item, index) => (
-              <Grid item xs={16} sm={8} md={4} key={index}>
-                <PortfolioItem
-                  data={item}
-                  handleClick={projectData => {
-                    this.handleProjectClick(projectData)
-                  }}
-                />
+          {categories.map((category, index) => (
+            <div>
+              <h1>⭐ {category}</h1>
+              <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                {sorted[index].map((items, index) => (
+                  <Grid item xs={16} sm={8} md={4} key={index}>
+                    <PortfolioItem
+                      data={items}
+                      handleClick={projectData => {
+                        this.handleProjectClick(projectData)
+                      }}
+                    />
+                  </Grid>
+                ))}  
               </Grid>
-            ))}  
-          </Grid>
+              <br />
+              <br />
+            </div>
+          ))}
         </Box>
       </div>
     );
   }
-
-  // componentWillMount: function() {
-  //   this.props.instance.restore(this)
-  // },
-  // componentWillUnmount: function() {
-  //   var state = this.state
-  //   this.props.instance.save(function(ctx){
-  //     ctx.setState(state)
-  //   })
-  // }
 }
 

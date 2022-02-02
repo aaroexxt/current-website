@@ -54,15 +54,15 @@ code {
   --media-max-height: 30vw;
 }
 
-div.markdownContainer img {
+div.markdownContainer img:not(:fullscreen) {
   height: var(--media-max-height);
 }
 
-div.markdownContainer .video-react {
+div.markdownContainer .video-react:not(:fullscreen) {
   height: var(--media-max-height) !important;
 }
 
-div.markdownContainer source {
+div.markdownContainer source:not(:fullscreen) {
   height: var(--media-max-height) !important;
 }
 
@@ -104,7 +104,9 @@ iframe {
   background: rgba(255, 255, 255, 0.6 );
   text-align: center;
   font-weight: bold;
+  font-size: 1.5vw; /* For mobile responsive layout */
   opacity: 0;
+
   transition: visibility 0s, opacity 0.1s linear;
 }
 
@@ -118,4 +120,13 @@ iframe {
 
 .invisible {
   display: none !important;
+}
+
+.about-text {
+  display: flex;
+  align-items: center;
+}
+
+.about-text img {
+  padding-right: 10px;
 }

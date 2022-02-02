@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 
 import { saveAs } from "file-saver";
@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import mutateState from "./mutateState.jsx";
 import withStyles from '@mui/styles/withStyles';
 
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
