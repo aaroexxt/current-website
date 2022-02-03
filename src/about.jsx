@@ -20,15 +20,15 @@ function About(props) {
       <center>
           <img
             className="about-headshot"
-            width="350px"
-            height="350px"
+            width="450px"
+            height="450px"
             src="content/headshot.png"
           />
       </center>
       <br />
       <br />
       <span>
-        Welcome to my website! I'm currently an undergraduate student at MIT pursuing a B.S. in Mechanical Engineering with a minor in Computer Science. <br /> From highschool robotics to MIT's Formula SAE team, I’ve demonstrated my capacity to conduct advanced technical work in a team or in a self-directed fashion.
+        Welcome to my website! I'm currently an undergraduate student at MIT pursuing a B.S. in Mechanical Engineering with a minor in Computer Science. <br /> From highschool robotics to MIT's Formula SAE team, I’ve demonstrated my capacity to conduct advanced technical work on a team or in a self-directed fashion.
       </span>
       <p>Check out my <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Portfolio")}}>portfolio</a> or <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Resume")}}>resume</a> by using the tabs above, and don't hesitate to reach out to <a target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a> if you have any questions.</p>
 
@@ -44,6 +44,7 @@ function About(props) {
         <img width="50px" height="50px" src="content/linkedin.png"></img>
         <span>Finally, here's my <a href="https://www.linkedin.com/in/aaron-m-becker/" target="_blank">LinkedIn</a> for information on jobs and internships.</span>
       </div>
+      <br />
     </div>
   );
 }

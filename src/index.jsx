@@ -14,10 +14,12 @@ import NavFooter from "./NavFooter.jsx";
 import Portfolio from './portfolio.jsx';
 import Resume from "./resume.jsx";
 import About from './about.jsx';
+import Meme from './meme.jsx';
 
 //Util functions
 import mutateState from "./mutateState.jsx";
 import reportWebVitals from './reportWebVitals';
+import { createContext } from './hotkeys';
 
 //Local storage support
 import { localStorageSave, localStorageGet } from './localStorageUtils';
@@ -73,6 +75,16 @@ class Index extends React.Component {
   };
 
   componentDidMount() {
+    //Meme page
+    this.keyComboContext = createContext();
+    this.keyComboContext.register('up up down down left right left right b a', () => {
+      console.log("bonk")
+      mutateState(this, {menu: {selected: "Meme"}});
+    });
+  
+    //Setup componentCleanup handler for page reload
+    window.addEventListener('beforeunload', this.componentCleanup);
+
     //Check if there is a preserved state, and if so, restore it otherwise perform first-time setup
     const retreivedState = localStorageGet("ambeckercom-menuState");
 
@@ -83,9 +95,6 @@ class Index extends React.Component {
         }
       } catch(e) {}
     }
-
-    //Setup componentCleanup handler for page reload
-    window.addEventListener('beforeunload', this.componentCleanup);
   }
 
   componentWillUnmount() {
@@ -95,8 +104,13 @@ class Index extends React.Component {
   
   //Called before page is reloaded or component is unmounted
   componentCleanup() {
-    //Preserve our state in localStorage
-    localStorageSave("ambeckercom-menuState", this.state)
+    if (this.state.menu.selected.toLowerCase() !== "meme") {
+      //Preserve our state in localStorage
+      localStorageSave("ambeckercom-menuState", this.state)
+    }
+
+    //Unbind hotkeys
+    this.keyComboContext.disable();
   }
 
   render() {
@@ -132,6 +146,19 @@ class Index extends React.Component {
           <Resume
             filename="content/resume.pdf"
             saveFilename="AaronBeckerResume.pdf"
+          />
+        )
+        break;
+
+      /*********
+       * Fun Meme Page
+       */
+      case "Meme":
+        content = (
+          <Meme
+          pageChange={(name) => {
+            this.handleMenuChange(null, this.nameToMenuIdx(name))
+          }}
           />
         )
         break;

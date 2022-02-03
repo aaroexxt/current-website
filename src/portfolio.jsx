@@ -83,7 +83,7 @@ class PortfolioItem extends React.Component {
           }
           <CardMedia
             component="img"
-            height="300"
+            height="400"
             image={this.state.imagePath}
             alt={props.data.title}
             className={!this.state.imageLoaded ? "invisible" : ""} // Set to invisible while loading
@@ -158,7 +158,7 @@ class ZoomableImage extends React.Component {
           <div className={"zoom-container"}>
 
             <img className={(!this.state.imageLoaded) ? "invisible" : ""} onLoad={() => this.handleImgLoad()} {...this.state.oProps}/>
-            
+
             {(!this.state.imageLoaded) ? <img src={this.state.previewSRC}/> : null}
 
             {<p className={(this.state.isZoomed && this.state.oProps.hasOwnProperty("alt") && this.state.oProps.alt != "") ? "zoomed-text" : null}> {this.state.oProps.alt} </p>}

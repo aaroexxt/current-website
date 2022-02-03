@@ -119,7 +119,7 @@
         },
         {
             "dirPrefix": "MITFSAE",
-            "image": "",
+            "image": "carFront.jpg",
             "title": "Student Team - MIT Formula SAE",
             "description": "Specification, dynamic and static analysis, and fabrication for MY22 braking system",
             "date": "Fall - Present",
