@@ -26,6 +26,9 @@ import {
 } from 'video-react';
 import 'video-react/dist/video-react.css'; // import css
 
+//PDF support
+import PDFViewer from './PDFViewer';
+
 //Markdown rendering packages
 import ReactMarkdown from 'react-markdown'
 import remarkUnwrapImages from 'remark-unwrap-images'
@@ -115,6 +118,14 @@ const CustomMarkdownImage = props => {
   let movieExtensions = ["mp4", "webm", "ogg", "mov"];
   if (props.hasOwnProperty("src") && movieExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a movie?
     return <PlayableVideo {...props}/>;
+  }
+
+  let pdfExtensions = ["pdf"];
+  if (props.hasOwnProperty("src") && pdfExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a pdf?
+    return <PDFViewer
+            filename={props.src}
+            class={"portfolioPDFViewer"}
+          />;
   }
   
   return (

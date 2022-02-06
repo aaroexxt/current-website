@@ -112,7 +112,6 @@ const debounce = (fn, time) => {
 };
 
 const getKey = (key) => {
-    console.log(key)
   switch (key) {
     case '+':
       return 'plus';

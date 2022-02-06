@@ -1,4 +1,4 @@
-During the winter of 2020, I build a homemade reflow oven based on Controleo3 to allow me to reflow my PCBs more accurately and quickly.
+During the winter of 2020, I build a homemade reflow oven based on the Controleo3 system to allow me to reflow my PCBs more accurately and quickly.
 
 ## Background
 

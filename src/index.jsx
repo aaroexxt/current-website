@@ -78,7 +78,6 @@ class Index extends React.Component {
     //Meme page
     this.keyComboContext = createContext();
     this.keyComboContext.register('up up down down left right left right b a', () => {
-      console.log("bonk")
       mutateState(this, {menu: {selected: "Meme"}});
     });
   
@@ -94,6 +93,19 @@ class Index extends React.Component {
           this.setState(retreivedState);
         }
       } catch(e) {}
+    }
+
+
+    //Easter egg
+    let egg = [
+      "              /| ________________",
+      "O|===|* >________________>",
+      "             \\|",
+      "easter egg: up up down down left right left right b a"
+    ];
+
+    for (let e in egg) {
+      console.log(egg[e]);
     }
   }
 

@@ -6,13 +6,9 @@ import Button from "@mui/material/Button";
 import mutateState from "./mutateState.jsx";
 import withStyles from '@mui/styles/withStyles';
 
+import PDFViewer from "./PDFViewer.jsx";
+
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
-
-import { Viewer, Worker } from '@react-pdf-viewer/core';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
-
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 const styles = (theme) => ({
     root: {
@@ -45,11 +41,14 @@ class Resume extends React.Component {
                     onClick={this.handleResumeSave}
                     disabled={this.state.downloading}
                     >
-                Click to Download Resume
+                Click Here to Download Resume
                 </Button>
                 <br></br>
                 <br></br>
-                <PDFViewer filename={this.state.filename} />
+                <PDFViewer
+                    filename={this.state.filename}
+                    class={"resumePDFViewer"}
+                />
             </div>
         )
     }
@@ -70,28 +69,6 @@ class Resume extends React.Component {
         window.scrollTo(0, 0);
         disableBodyScroll(this.targetElement);
     }
-}
-
-function PDFViewer(props) {
-    const defaultLayoutPluginInstance = defaultLayoutPlugin(); //keeps track of state
-    const openLinkInNewTab = (e) => {
-        e.preventDefault();
-        if (e.target.tagName.toLowerCase() === 'a') {
-            window.open( e.target.href );
-        }
-    }
-
-    return (
-        <Worker workerUrl="pdf.worker.js">
-            <div className={"resumeViewer"}>
-                <Viewer
-                    fileUrl={`${process.env.PUBLIC_URL}/${props.filename}`}
-                    plugins={[defaultLayoutPluginInstance]}
-                    onClick={openLinkInNewTab}
-                />
-            </div>
-        </Worker>
-    )
 }
 
 Resume.propTypes = {

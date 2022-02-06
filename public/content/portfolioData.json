@@ -130,9 +130,9 @@
 
         {
             "dirPrefix": "MITRocketTeam",
-            "image": "",
+            "image": "hermesLaunch.jpg",
             "title": "Student Team - MIT Rocket Team",
-            "description": "Implementing reliable software control of high-g-accelerometer using RTOS",
+            "description": "Implementing reliable software control of a high-g-accelerometer using a RTOS",
             "date": "Fall - Winter 2021",
             "markdown": "rt.md",
 
