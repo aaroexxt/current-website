@@ -69,3 +69,5 @@ Then, it landed in a river a half mile or so away from the launch site, and afte
 # Conclusion
 
 Overall, joining Rocket Team has been an education and fun experience between gaining knowledge in the testing and assembly of larger-scale rockets to the deployment and testing of robust RTOS-based software designed to operate in harsh conditions. Even though I'm no longer on the team due to time constraints, I'm glad to have had such a great semester working with everyone!
+
+Additional photo credit (cover photo): MIT Rocket Team

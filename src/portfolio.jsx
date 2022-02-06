@@ -26,6 +26,9 @@ import {
 } from 'video-react';
 import 'video-react/dist/video-react.css'; // import css
 
+//Audio support
+import ReactAudioPlayer from 'react-audio-player';
+
 //PDF support
 import PDFViewer from './PDFViewer';
 
@@ -126,6 +129,11 @@ const CustomMarkdownImage = props => {
             filename={props.src}
             class={"portfolioPDFViewer"}
           />;
+  }
+
+  let audioExtensions = ["mp3", "wav", "aac", "flac", "m4a", "wma", "ogg"];
+  if (props.hasOwnProperty("src") && audioExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it an audio file?
+    return <ReactAudioPlayer {...props} controls/>;
   }
   
   return (

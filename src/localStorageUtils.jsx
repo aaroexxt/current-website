@@ -6,7 +6,7 @@ export const localStorageSave = (key, value) => {
     // `item` is an object which contains the original value
 	// as well as the time when it's supposed to expire
 
-    const ttl = (1000 * 60 * 60 * 24); // 24 hours
+    const ttl = 1000;//(1000 * 60 * 60 * 24); // 24 hours
 
     const item = {
 		value: value,
@@ -16,6 +16,7 @@ export const localStorageSave = (key, value) => {
 }
 
 export const localStorageGet = key => {
+    return null;
 	const itemStr = localStorage.getItem(key)
 	// if the item doesn't exist, return null
 	if (!itemStr) {

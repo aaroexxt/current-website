@@ -71,7 +71,7 @@ div.markdownContainer source:not(:fullscreen) {
   height: var(--media-max-height) !important;
 }
 
-div.markdownContainer ul {
+div.markdownContainer ul,ol {
   text-align: left;
   list-style-position: inside;
 }

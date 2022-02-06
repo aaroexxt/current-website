@@ -92,7 +92,7 @@ As of the time of writing this, the brakes have yet to be machined, so this is a
 
 ## Epicyclic Gearbox
 
-I also had the opportunity to work on one of our team's ambitious R&D projects for this year, which was the assembly and testing of an epicyclic (planetary) gearbox designed to carry the full load of a motor to one of the rear wheels.
+I also had the opportunity to work on one of our team's ambitious R&D projects for this year, which was the assembly and testing of an epicyclic (planetary) gearbox designed to carry the full load of a motor to one of the rear wheels. Although I wasn't involved with the initial design or manufacturing process, assembly and testing was still a formidable challenge due to the complexity and tight tolerances.
 
 Below are some pictures showing off the entire assembly:
 

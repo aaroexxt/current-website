@@ -19,6 +19,7 @@
     "material-ui-image": "^3.3.2",
     "pdfjs-dist": "^2.11.338",
     "react": "^17.0.2",
+    "react-audio-player": "^0.17.0",
     "react-dom": "^17.0.2",
     "react-markdown": "^7.1.2",
     "react-medium-image-zoom": "^4.3.5",

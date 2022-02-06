@@ -24,9 +24,20 @@ function Meme(props) {
         <h4>This is the about page</h4>
         <h5>This is the about page</h5>
         <h6>This is the about page</h6>
-        <img src="content/wackyHeadshot.jpg" width="750px" height="750px" />
+        <h3>Welcome to the meme page, friend</h3>
+        <img src="content/memes/wackyHeadshot.jpg" width="750px" height="750px" />
+        <br />
+        <h3>More delicious content</h3>
+        <img src="content/memes/1.png" height="400px"/>
+        <img src="content/memes/2.png" height="400px"/>
+        <img src="content/memes/3.jpg" height="400px"/>
+        <img src="content/memes/4.png" height="400px"/>
+        <img src="content/memes/5.png" height="400px"/>
+        <img src="content/memes/6.jpg" height="400px"/>
+        <br />
         <br />
         <Button onClick={(e) => {e.preventDefault(); pageChange("Portfolio")}} variant="contained" color="primary">OH GOD please go back</Button>
+        <br />
         <br />
         
     </div>

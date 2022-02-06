@@ -171,7 +171,7 @@ const createKeyDownListener = (listeners, debounceTime) => {
 };
 
 const validateContext = (options) => {
-  const { debounceTime = 500, autoEnable = true } = (options || {});
+  const { debounceTime = 2000, autoEnable = true } = (options || {});
 
   validateType(debounceTime, 'debounceTime', 'number');
   validate(debounceTime > 0, 'debounceTime must be > 0');

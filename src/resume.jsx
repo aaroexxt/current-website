@@ -29,10 +29,10 @@ class Resume extends React.Component {
             saveFilename: props.saveFilename,
             downloading: false
         }
+        
     }
 
     render() {
-
         const {classes} = this.props;
         return (
             <div className={classes.root} id="resumeContainer">

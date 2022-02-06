@@ -13,7 +13,7 @@
         {
             "dirPrefix": "RocketGroundStation",
             "image": "interface.png",
-            "title": "IP - Rocket Ground Station",
+            "title": "Rocket Ground Station",
             "description": "Implementing a frontend for Zenith - that also supports AES-128 encrypted telemetry",
             "date": "Winter 2021",
             "markdown": "ground.md",
@@ -36,12 +36,14 @@
             "title": "Homemade Reflow Oven",
             "description": "Building a custom reflow oven to speed PCB development",
             "date": "Winter 2020",
-            "markdown": "oven.md"
+            "markdown": "oven.md",
+
+            "category": "Featured"
         },
         {
             "dirPrefix": "BikeComputer",
             "image": "v1Display.jpg",
-            "title": "IP - Bike Computer",
+            "title": "Bike Computer",
             "description": "Building an onboard bike computer used to track speed and distance",
             "date": "Winter 2017",
             "markdown": "bcomp.md"
@@ -57,15 +59,17 @@
         {
             "dirPrefix": "ESkate",
             "image": "v4Top.jpeg",
-            "title": "IP - Custom Electric Skateboard",
+            "title": "Custom Electric Skateboard",
             "description": "Building an electric skateboard from scratch",
             "date": "Spring 2020",
-            "markdown": "eskate.md"
+            "markdown": "eskate.md",
+
+            "category": "Featured"
         },
         {
             "dirPrefix": "HTHSHacks",
             "image": "frontUI.png",
-            "title": "IP - Somehow Winning a Hackathon",
+            "title": "InformedTraveler - My First Hackathon",
             "description": "Attending my first hackathon with a friend - and somehow pulling off a win!",
             "date": "Summer 2021",
             "markdown": "hths.md"
@@ -89,7 +93,7 @@
         {
             "dirPrefix": "PopsicleChair",
             "image": "chair.png",
-            "title": "IP - Popsicle Stick Chair",
+            "title": "Popsicle Stick Chair",
             "description": "Where it all started",
             "date": "Winter 2015",
             "markdown": "chair.md"
@@ -97,7 +101,7 @@
         {
             "dirPrefix": "Tacotron",
             "image": "synthesizer.png",
-            "title": "IP - TACOTRON: Cloning My Voice with Machine Learning",
+            "title": "TACOTRON: Cloning My Voice with Machine Learning",
             "description": "Creating & training a dataset to clone my voice",
             "date": "Winter 2018",
             "markdown": "tacotron.md"
@@ -109,13 +113,6 @@
             "description": "Building a physics engine that uses only ASCII, and using it to make a game",
             "date": "Winter 2018",
             "markdown": "ascii.md"
-        },
-        {
-            "dirPrefix": "MiscPCBs",
-            "image": "evolution.jpg",
-            "title": "IP - PCB Design Evolution",
-            "description": "Various PCBs I've built that showcase the learning process",
-            "date": "Summer 2020 - Present"
         },
         {
             "dirPrefix": "MITFSAE",
@@ -139,6 +136,6 @@
             "category": "Recent & Relevant"
         }
     ],
-    "categories": ["Recent & Relevant", "Featured", "All Projects"]
+    "categories": ["Recent & Relevant", "Featured", "Other Projects & Teams"]
 }
   
