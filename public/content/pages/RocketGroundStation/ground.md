@@ -28,7 +28,6 @@ However, the AES protocol is also based on a block size of 128 bits (16 bytes), 
 
 Once the data is received by the ground station, it's sent over USB serial to the computer, which further stores it internally in a local server. The main UI is written with web technology and hosted with Node.JS locally, and then deployed into an application with Electron. In this way, it's possible for other applications to interact with the server backend using Websockets if I ever wanted to build on the underlying technology.
 
-
 ## Development Ideas
 
 During development, I also built multiple versions of the frontend to see how they would look. I made an interactive 3d renderer which could render the rocket in real time, which I later scrapped for a more useful large button panel.
@@ -38,3 +37,7 @@ During development, I also built multiple versions of the frontend to see how th
 The final version of the UI looks like the following, with real data being plotted in every graph segment:
 
 ![Final interface](interface.png)
+
+# Conclusion
+
+Building the interface for ZENITH was a significant amount of work, but I'm extremely proud of how it came out and the final form of the UI. Balancing function, form, and utility was difficult, but I certainly learned more about how to make a reliable, easy to use interface that's capable of monitoring data and launching rockets securely and remotely.

@@ -51,7 +51,7 @@
         {
             "dirPrefix": "CarHacking",
             "image": "carReverseEngineering.png",
-            "title": "IP - Car ECU Hacking",
+            "title": "Car ECU Hacking",
             "description": "Reading data from a Subaru in real time",
             "date": "Winter 2019",
             "markdown": "chack.md"
@@ -77,7 +77,7 @@
         {
             "dirPrefix": "FlightClub",
             "image": "fcaWing.jpg",
-            "title": "IP - Student Team - Flight Club Aerospace",
+            "title": "Student Team - Flight Club Aerospace",
             "description": "High school students building an electric ultralight aircraft",
             "date": "Summer 2020 - Spring 2021",
             "markdown": "fca.md"
