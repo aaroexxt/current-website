@@ -7,3 +7,5 @@ Eventually, I did mostly succeed! Although the chair was eventually scrapped, I 
 The final chair in all its glory:
 
 ![The finished chair!](chair.png)
+
+Overall, I'm happy that despite how silly the initial concept was, the final result was fairly successful!

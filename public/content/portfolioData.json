@@ -58,10 +58,10 @@
         },
         {
             "dirPrefix": "ESkate",
-            "image": "v4Top.jpeg",
-            "title": "Custom Electric Skateboard",
-            "description": "Building an electric skateboard from scratch",
-            "date": "Spring 2020",
+            "image": "v3done.jpeg",
+            "title": "Custom Electric Skateboard(s)",
+            "description": "Building an advanced electric skateboard from scratch",
+            "date": "Spring 2019 - Summer 2021",
             "markdown": "eskate.md",
 
             "category": "Featured"
@@ -83,18 +83,18 @@
             "markdown": "fca.md"
         },
         {
-            "dirPrefix": "FRC",
+            "dirPrefix": "HSRobotics",
             "image": "teamPhoto2020.jpg",
-            "title": "IP - Student Team - FIRST Robotics Challenge",
-            "description": "High school robotics team",
+            "title": "Student Team - FIRST Robotics Challenge",
+            "description": "High school robotics team - Houston 2019 World Championship winners!",
             "date": "Fall 2017 - Summer 2021",
-            "markdown": "frc.md"
+            "markdown": "robo.md"
         },
         {
             "dirPrefix": "PopsicleChair",
             "image": "chair.png",
             "title": "Popsicle Stick Chair",
-            "description": "Where it all started",
+            "description": "Where it all started!",
             "date": "Winter 2015",
             "markdown": "chair.md"
         },
@@ -108,11 +108,11 @@
         },
         {
             "dirPrefix": "ASCIIPhysicsEngine",
-            "image": "platformed.jpg",
-            "title": "IP - ASCII Physics Engine in Vanilla JavaScript",
-            "description": "Building a physics engine that uses only ASCII, and using it to make a game",
+            "image": "titleScreen.jpg",
+            "title": "ASCII Physics and Game Engine in Vanilla JavaScript",
+            "description": "Building a game engine that uses only ASCII, and using it to make a game",
             "date": "Winter 2018",
-            "markdown": "ascii.md"
+            "markdown": "asciiPhysics.md"
         },
         {
             "dirPrefix": "MITFSAE",

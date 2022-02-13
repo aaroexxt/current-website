@@ -18,7 +18,7 @@ On ZENITH and the ground station, which are both based on the same hardware, the
 
 The encryption is based on the widely used and secure AES-128 protocol, with hardcoded keys in both the receiver and transmitter that don't change. This works well security-wise because in order to even potentiall gain access to the key, physical access to the device is required, and this keeps the communications simple without having to do something like a handshake/key exchange upon every reconnection.
 
-According to one [google search result](https://crypto.stackexchange.com/questions/48667/how-long-would-it-take-to-brute-force-an-aes-128-key), brute-forcing a worse-case AES-128 key would take around 2,158,000,000,000 years, while the universe has only been around for 13,799,000,000. So I think we're plenty secure enough unless some other vulnerability is discovered in the AES protocol.
+According to one [google search result](https://crypto.stackexchange.com/questions/48667/how-long-would-it-take-to-brute-force-an-aes-128-key), brute-forcing a worse-case AES-128 key would take around 2,158,000,000,000 years, while the universe has only been around for 13,799,000,000 (156.4x!). So I think we're plenty secure enough unless some other vulnerability is discovered in the AES protocol.
 
 However, the AES protocol is also based on a block size of 128 bits (16 bytes), which adds complexity due to all messages having to be padded out to that length. I based my actual encryption on an existing library that works on each block, but wrote entirely new code to pad sensor data into correctly-sized blocks and then sending them over the radio link.
 
