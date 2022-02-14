@@ -103,14 +103,16 @@ class Index extends React.Component {
     //Check if we have URL override
     const urlParams = parsePath(window.location.href);
     
-    for (let i = 0; i < this.state.menu.options.length; i++) {
-      let menuItemName = this.state.menu.options[i][0].toLowerCase();
-      if (urlParams.hash.indexOf(menuItemName) > -1) {
-        // console.log("URL override detected for " + this.state.menu.options[i][0]);
-        mutateState(this, {menu: {selected: i}});
+    if (urlParams.hasOwnProperty("hash")) {
+      for (let i = 0; i < this.state.menu.options.length; i++) {
+        let menuItemName = this.state.menu.options[i][0].toLowerCase();
+        if (urlParams.hash.indexOf(menuItemName) > -1) {
+          // console.log("URL override detected for " + this.state.menu.options[i][0]);
+          mutateState(this, {menu: {selected: i}});
 
-        if (menuItemName !== "Portfolio") { //portfolio is a special case that manages its own state
-          history.push(menuItemName);
+          if (menuItemName.indexOf("Portfolio") === -1) { //portfolio is a special case that manages its own state
+            history.push(menuItemName);
+          }
         }
       }
     }
@@ -263,4 +265,4 @@ ReactDOM.render( <Index />, document.getElementById('root'));
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(console.log);
+// reportWebVitals(console.log);

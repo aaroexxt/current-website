@@ -294,14 +294,14 @@ export default class Portfolio extends React.Component {
     mutateState(this, {singleProjectView: true, singleProjectData: projectData, singleProjectMarkdown: "# Loading"});
     this.loadMarkdownFile(this.baseURL + "/content/pages/"+projectData.dirPrefix+"/",projectData.markdown);
 
-    history.push("portfolio/"+projectData.dirPrefix);
+    history.replace("portfolio/"+projectData.dirPrefix);
   }
 
   //Handle the 'return to projects view'
   handleProjectReturn() {
     mutateState(this, {singleProjectView: false});
 
-    history.push("portfolio");
+    history.replace("portfolio");
   }
 
 
@@ -310,11 +310,13 @@ export default class Portfolio extends React.Component {
     window.addEventListener('beforeunload', this.componentCleanup);
 
     //Check if we have URL overrides
-    const urlParams = parsePath(window.location.pathname);
-    for (let i=0; i<PortfolioData.projects.length; i++) {
-      if (urlParams.pathname.toLowerCase().indexOf(PortfolioData.projects[i].dirPrefix.toLowerCase()) !== -1) {
-        this.handleProjectClick(PortfolioData.projects[i]);
-        break;
+    const urlParams = parsePath(window.location.href);  
+    if (urlParams.hasOwnProperty("hash")) {
+      for (let i=0; i<PortfolioData.projects.length; i++) {
+        if (urlParams.hash.toLowerCase().indexOf(PortfolioData.projects[i].dirPrefix.toLowerCase()) !== -1) {
+          this.handleProjectClick(PortfolioData.projects[i]);
+          break;
+        }
       }
     }
   }
