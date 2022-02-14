@@ -17,7 +17,7 @@ export default function PDFViewer(props) {
         <Worker workerUrl="pdf.worker.js">
             <div className={props.class}>
                 <Viewer
-                    fileUrl={`${process.env.PUBLIC_URL}/${props.filename}`}
+                    fileUrl={props.filename}
                     plugins={[defaultLayoutPluginInstance]}
                     onClick={openLinkInNewTab}
                 />

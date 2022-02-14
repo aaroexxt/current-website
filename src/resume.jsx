@@ -47,7 +47,7 @@ class Resume extends React.Component {
                     <br></br>
                     <br></br>
                     <PDFViewer
-                        filename={this.state.filename}
+                        filename={new URL(window.location.href).origin+"/"+this.state.filename}
                         class={"resumePDFViewer"}
                     />
                 </center>
