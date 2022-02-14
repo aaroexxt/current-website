@@ -13,26 +13,18 @@ const styles = (theme) => ({
 });
 
 function Contact(props) {
-  const { classes, pageChange } = props;
+  const { classes } = props;
   window.scrollTo(0, 0);
   return (
     <div className={classes.root}>
         <h6 className="title">Contact me!</h6>
 
-        <span>If you're interested in reaching out to discuss an opporutnity, or just want to say hi, I'd love to hear from you!</span>
+        <span>If you're interested in reaching out to discuss an opportunity, or just want to say hi, I'd love to hear from you!</span>
         <br />
         <br />
         <div className="about-text">
-        <img width="50px" height="50px" src="content/email.png"></img>
-        <span>The fastest way to reach me is via email at <a target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a>.</span>
-      </div>
-
-      <br />
-      <br />
-
-      <div className="about-text">
-        <img width="50px" height="50px" src="content/phone.png"></img>
-        <span>Alternately, give my cell a call at <a href="tel:650-533-3585">650-533-3585</a>.</span>
+        <img alt="email logo" width="50px" height="50px" src="content/email.png"></img>
+        <span>The fastest way to reach me is via email at <a rel="noreferrer" target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a>.</span>
       </div>
       <br />
 

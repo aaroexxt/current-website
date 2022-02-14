@@ -36,19 +36,21 @@ class Resume extends React.Component {
         const {classes} = this.props;
         return (
             <div className={classes.root} id="resumeContainer">
-                <Button
-                    variant="outlined"
-                    onClick={this.handleResumeSave}
-                    disabled={this.state.downloading}
-                    >
-                Click Here to Download Resume
-                </Button>
-                <br></br>
-                <br></br>
-                <PDFViewer
-                    filename={this.state.filename}
-                    class={"resumePDFViewer"}
-                />
+                <center>
+                    <Button
+                        variant="outlined"
+                        onClick={this.handleResumeSave}
+                        disabled={this.state.downloading}
+                        >
+                    Click Here to Download Resume
+                    </Button>
+                    <br></br>
+                    <br></br>
+                    <PDFViewer
+                        filename={this.state.filename}
+                        class={"resumePDFViewer"}
+                    />
+                </center>
             </div>
         )
     }

@@ -16,8 +16,7 @@ export const localStorageSave = (key, value) => {
 }
 
 export const localStorageGet = key => {
-    return null;
-	const itemStr = localStorage.getItem(key)
+    const itemStr = localStorage.getItem(key)
 	// if the item doesn't exist, return null
 	if (!itemStr) {
 		return null

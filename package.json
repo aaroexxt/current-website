@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^12.8.3",
     "body-scroll-lock": "^4.0.0-beta.0",
     "file-saver": "^2.0.5",
+    "history": "^5.2.0",
     "material-ui-image": "^3.3.2",
     "pdfjs-dist": "^2.11.338",
     "react": "^17.0.2",
@@ -32,8 +33,9 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "optimize": "echo 'Pulling latest optimization script from web' && curl https://raw.githubusercontent.com/aaroexxt/Website-Content-Optimizer/main/optimize.sh -o optimize.sh && chmod +x optimize.sh && echo 'Running optimization script' && ./optimize.sh -f public/content ; rm optimize.sh",
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "npm run optimize && react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },

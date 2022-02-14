@@ -23,6 +23,7 @@ function About(props) {
             width="450px"
             height="450px"
             src="content/headshot.png"
+            alt="headshot"
           />
       </center>
       <br />
@@ -30,21 +31,21 @@ function About(props) {
       <span>
         Welcome to my website! I'm currently an undergraduate student at MIT pursuing a B.S. in Mechanical Engineering with a minor in Computer Science.
         <br />
-        From highschool robotics to MIT's Formula SAE team, I’ve demonstrated my capacity to conduct advanced technical work on a team or in a self-directed fashion.
+        From high school robotics to MIT's Formula SAE team, I’ve demonstrated my capacity to conduct advanced technical work on a team or in a self-directed fashion.
       </span>
-      <p>Check out my <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Portfolio")}}>portfolio</a> or <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Resume")}}>resume</a> by using the tabs above, and don't hesitate to reach out to me by visiting my <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Contact")}}>contact</a> page or directly at <a target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a> if you have any questions.</p>
+      <p>Check out my <a rel="noreferrer" href="#" onClick={(e) => {e.preventDefault(); pageChange("Portfolio")}}>portfolio</a> or <a rel="noreferrer" href="#" onClick={(e) => {e.preventDefault(); pageChange("Resume")}}>resume</a> by using the tabs above, and don't hesitate to reach out to me by visiting my <a rel="noreferrer" href="#" onClick={(e) => {e.preventDefault(); pageChange("Contact")}}>contact</a> page or directly at <a rel="noreferrer" target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a> if you have any questions.</p>
 
       <div className="about-text">
-        <img width="50px" height="50px" src="content/github.png"></img>
-        <span>Take a look at my <a href="https://github.com/aaroexxt" target="_blank">GitHub</a>  for more up-to-date information on my latest projects!</span>
+        <img alt="GitHub logo" width="50px" height="50px" src="content/github.png"></img>
+        <span>Take a look at my <a href="https://github.com/aaroexxt" rel="noreferrer" target="_blank">GitHub</a>  for more up-to-date information on my latest projects!</span>
       </div>
 
       <br />
       <br />
 
       <div className="about-text">
-        <img width="50px" height="50px" src="content/linkedin.png"></img>
-        <span>Finally, here's my <a href="https://www.linkedin.com/in/aaron-m-becker/" target="_blank">LinkedIn</a> for information on jobs and internships.</span>
+        <img alt="LinkedIn logo" width="50px" height="50px" src="content/linkedin.png"></img>
+        <span>Finally, here's my <a href="https://www.linkedin.com/in/aaron-m-becker/" rel="noreferrer" target="_blank">LinkedIn</a> for information on jobs and internships.</span>
       </div>
       <br />
     </div>

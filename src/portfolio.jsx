@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 
 //Mui packages
 import Card from '@mui/material/Card';
@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea } from '@mui/material';
 
 //Image zooming support
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom'
@@ -17,8 +17,6 @@ import 'react-medium-image-zoom/dist/styles.css'
 import {
   Player,
   ControlBar,
-  ReplayControl,
-  ForwardControl,
   CurrentTimeDisplay,
   TimeDivider,
   PlaybackRateMenuButton,
@@ -38,32 +36,26 @@ import remarkUnwrapImages from 'remark-unwrap-images'
 import gfm from 'remark-gfm'
 import mutateState from './mutateState';
 
-//Local storage support
-import { localStorageSave, localStorageGet } from './localStorageUtils';
+//History API support
+import history from 'history/hash';
+import { parsePath } from 'history';
 
-function createInstance() {
-  var func = null;
-  return {
-    save: function(f) {
-      func = f;
-    },
-    restore: function(context) {
-      func && func(context);
-    }
-  }
-}
+//All project data
+import PortfolioData from './portfolioData.json';
 
 
 //Single portfolio card containing some basic information about the project
 class PortfolioItem extends React.Component {
   constructor(props) {
     super(props);
+
+    const imPath = "content/pages/"+props.data.dirPrefix+"/"+props.data.image;
     this.state = {
-      imagePath: "content/pages/"+props.data.dirPrefix+"/"+props.data.image,
+      imagePath: imPath,
       oProps: props,
-      imageLoaded: false
+      imageLoaded: false,
+      thumbPath: imPath.replace(/(\.[\w\d_-]+)$/i, '_thumb$1')
     }
-    mutateState(this, {thumbPath: this.state.imagePath.replace(/(\.[\w\d_-]+)$/i, '_thumb$1')})
   }
 
   handleImageLoaded(newState) {
@@ -180,7 +172,7 @@ class ZoomableImage extends React.Component {
 
             {(!this.state.imageLoaded) ? <img src={this.state.previewSRC}/> : null}
 
-            {<p className={(this.state.isZoomed && this.state.oProps.hasOwnProperty("alt") && this.state.oProps.alt != "") ? "zoomed-text" : null}> {this.state.oProps.alt} </p>}
+            {<p className={(this.state.isZoomed && this.state.oProps.hasOwnProperty("alt") && this.state.oProps.alt !== "") ? "zoomed-text" : null}> {this.state.oProps.alt} </p>}
           </div>
         </ControlledZoom>
     );
@@ -235,48 +227,56 @@ export default class Portfolio extends React.Component {
     super(props);
 
     this.state = {
-      //loading/error are for initial JSON file
-      loading: true,
-      error: false,
-      //ItemData from JSON
-      itemData: {},
-
       singleProjectView: false, //are we in SPV?
       singleProjectData: {}, //selected project data
       singleProjectMarkdown: "" //actual markdown from selected project
     }
 
-    this.componentCleanup = this.componentCleanup.bind(this);
-  };
+    this.baseURL = new URL(window.location.href).origin;
 
-  //Load JSON file with project information
-  async setup() {
-    let response = await fetch("content/portfolioData.json");
-    if (response.ok) {
-      response.json().then(data => {
-        this.setState({loading: false, error: false, itemData: data})
-      }).catch(e => {
-        this.setState({loading: false, error: true})
-      })
-    } else {
-      this.setState({loading: false, error: true})
-    }
-  }
+    this.componentCleanup = this.componentCleanup.bind(this);
+
+    this.unlistenHistory = history.listen(({ action, location }) => {
+      // console.log(
+      //   `The current URL is ${location.pathname}${location.search}${location.hash}`
+      // );
+      // console.log(`The last navigation action was ${action}`);
+    
+      if (action === "POP") { //wait for attempted url return
+        let spl = window.location.hash.split("/");
+        let foundProject = false;
+        if (spl.length > 1) {
+          for (let i=0; i<PortfolioData.projects.length; i++) {
+            if (PortfolioData.projects[i].dirPrefix.indexOf(spl[1].replace("#","")) !== -1) {
+              this.handleProjectClick(PortfolioData.projects[i]);
+              foundProject = true;
+              break;
+            }
+          }
+        }
+
+        if (!foundProject) { //baseURL, so return to normal
+          this.setState({singleProjectView: false});
+          history.push("portfolio");
+        }
+      }
+    });
+  };
 
   //Load a single markdown file into state
   async loadMarkdownFile(prefix, file) {
     let response = await fetch(prefix+file);
     if (response.ok) {
       response.text().then(data => {
-        if (data.indexOf("<html lang=\"en\">") == -1) { //make sure we haven't fetched a page by accident
+        if (data.indexOf("<html lang=\"en\">") === -1) { //make sure we haven't fetched a page by accident
           mutateState(this, {
             singleProjectMarkdown: 
               //Transform image URLs in markdown to include path
               data.replace(/(!\[.*?\]\()(.+?)(\))/g, function(whole, a, b, c) {
-                if (b.indexOf("content/pages/") == -1) return a + prefix + b + c;
+                if (b.indexOf("content/pages/") === -1) return a + prefix + b + c;
                 return a+b+c; //no transformation necessary
             })
-          })
+          });
         } else {
           mutateState(this, {singleProjectMarkdown: "# This project is currently under construction! \n Error: mdNotFound '"+file+"'"})
         }
@@ -292,40 +292,31 @@ export default class Portfolio extends React.Component {
   //Handle a single project being clicked to go to full screen view
   handleProjectClick(projectData) {
     mutateState(this, {singleProjectView: true, singleProjectData: projectData, singleProjectMarkdown: "# Loading"});
-    this.loadMarkdownFile("content/pages/"+projectData.dirPrefix+"/",projectData.markdown);
+    this.loadMarkdownFile(this.baseURL + "/content/pages/"+projectData.dirPrefix+"/",projectData.markdown);
+
+    history.push("portfolio/"+projectData.dirPrefix);
   }
 
   //Handle the 'return to projects view'
   handleProjectReturn() {
     mutateState(this, {singleProjectView: false});
+
+    history.push("portfolio");
   }
 
 
   componentDidMount() {
-    //Check if there is a preserved state, and if so, restore it otherwise perform first-time setup
-    const retreivedState = localStorageGet("ambeckercom-portfolioState");
-
-    const stateInvalid = () => {
-      // Perform initial setup to load JSON configuration file
-     this.setup()
-   }
-
-    if (retreivedState) {
-      try {
-        if (!retreivedState.loading) {
-          this.setState(retreivedState);
-        } else {
-          stateInvalid();
-        }
-      } catch(e) {
-        stateInvalid();
-      }
-    } else {
-      stateInvalid();
-    }
-
     //Setup componentCleanup handler for page reload
     window.addEventListener('beforeunload', this.componentCleanup);
+
+    //Check if we have URL overrides
+    const urlParams = parsePath(window.location.pathname);
+    for (let i=0; i<PortfolioData.projects.length; i++) {
+      if (urlParams.pathname.toLowerCase().indexOf(PortfolioData.projects[i].dirPrefix.toLowerCase()) !== -1) {
+        this.handleProjectClick(PortfolioData.projects[i]);
+        break;
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -335,32 +326,11 @@ export default class Portfolio extends React.Component {
 
   //Called before page is reloaded or component is unmounted
   componentCleanup() {
-    //Preserve our state in localStorage
-    localStorageSave("ambeckercom-portfolioState", this.state)
+    //Cleanup history listeners
+    this.unlistenHistory();
   }
 
   render() {
-    //Loading state - while we're waiting for JSON file
-    if (this.state.loading) {
-      return (
-        <center>
-          <h1> Loading Portfolio Data, Please Wait...</h1>
-        </center>
-      );
-    }
-
-
-    //Error state - JSON file failed to load
-    if (this.state.error) {
-      return (
-        <center>
-          <h1>Error Loading Portfolio Data</h1>
-          <br></br>
-          <h2>If you see this in production, please contact Aaron at ambecker@mit.edu immediately.</h2>
-        </center>
-      )
-    }
-
     //Single project markdown view, with return button
     if (this.state.singleProjectView) {
       let sp = this.state.singleProjectData;
@@ -378,7 +348,7 @@ export default class Portfolio extends React.Component {
           <div className={"markdownContainer"}>
             <ReactMarkdown
               remarkPlugins={
-                [gfm],
+                [gfm]
                 [remarkUnwrapImages]
               }
               components={{img: CustomMarkdownImage}}
@@ -398,14 +368,14 @@ export default class Portfolio extends React.Component {
     }
 
     //Create empty array to populate with projects
-    let categories = this.state.itemData.categories;
+    let categories = PortfolioData.categories;
     let sorted = categories.map((itemName, index) => { //object with array of projects
-      return new Array()
+      return []
     })
 
     //Add projects into each category
-    for (let i=0; i<this.state.itemData.projects.length; i++) {
-      let project = this.state.itemData.projects[i];
+    for (let i=0; i<PortfolioData.projects.length; i++) {
+      let project = PortfolioData.projects[i];
 
       if (project.hasOwnProperty("category")) {
         let category = project.category;
@@ -426,11 +396,11 @@ export default class Portfolio extends React.Component {
       <div className="home">
         <Box sx={{ flexGrow: 1, paddingLeft: "1em", paddingRight: "1em" }}>
           {categories.map((category, index) => (
-            <div>
+            <div key={"cat-outer-"+index}>
               <h1>⭐ {category}</h1>
               <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 {sorted[index].map((items, index) => (
-                  <Grid item xs={16} sm={8} md={4} key={index}>
+                  <Grid item xs={16} sm={8} md={4} key={"sort-inner-"+index}>
                     <PortfolioItem
                       data={items}
                       handleClick={projectData => {

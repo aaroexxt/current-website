@@ -22,8 +22,9 @@ import mutateState from "./mutateState.jsx";
 import reportWebVitals from './reportWebVitals';
 import { createContext } from './hotkeys';
 
-//Local storage support
-import { localStorageSave, localStorageGet } from './localStorageUtils';
+//History API support
+import history from 'history/hash';
+import { parsePath } from 'history';
 
 const theme = createTheme({
   typography: {
@@ -56,23 +57,36 @@ class Index extends React.Component {
 
     this.componentCleanup = this.componentCleanup.bind(this);
 
+    this.unlistenHistory = history.listen(({ action, location }) => {
+      // console.log(
+      //   `The current URL is ${location.pathname}${location.search}${location.hash}`
+      // );
+      // console.log(`The last navigation action was ${action}`);
+    
+      if (action === "POP") { //wait for attempted url return
+        let spl = window.location.hash.split("/");
+        let nIdx = this.nameToMenuIdx(spl[0].replace("#", ""));
+        if (typeof nIdx === 'number') {
+          this.handleMenuChange(false, nIdx);
+        }
+      }
+    });
+
   };
 
   handleMenuChange = (event, idx) => {
-    if (idx == this.state.menu.selected) return; //make sure it's diff than what we have
-
-    switch (idx) {
-      case this.nameToMenuIdx("Portfolio"): //load box
-        console.log("Portfolio selected original");
-        break;
-    }
+    if (idx === this.state.menu.selected) return; //make sure it's diff than what we have
+    
+    history.push(this.state.menu.options[idx][0].toLowerCase());
 
     //Check that it's valid
-    if (this.menuIdxToName(idx)) {
+    let name = this.menuIdxToName(idx);
+    if (name) {
       //will return false if its not
       mutateState(this, {
         menu: { selected: idx },
       });
+
     }
   };
 
@@ -86,15 +100,19 @@ class Index extends React.Component {
     //Setup componentCleanup handler for page reload
     window.addEventListener('beforeunload', this.componentCleanup);
 
-    //Check if there is a preserved state, and if so, restore it otherwise perform first-time setup
-    const retreivedState = localStorageGet("ambeckercom-menuState");
+    //Check if we have URL override
+    const urlParams = parsePath(window.location.href);
+    
+    for (let i = 0; i < this.state.menu.options.length; i++) {
+      let menuItemName = this.state.menu.options[i][0].toLowerCase();
+      if (urlParams.hash.indexOf(menuItemName) > -1) {
+        // console.log("URL override detected for " + this.state.menu.options[i][0]);
+        mutateState(this, {menu: {selected: i}});
 
-    if (retreivedState) {
-      try {
-        if (retreivedState.menu.options.length > 0) { //make sure menu is in a valid state
-          this.setState(retreivedState);
+        if (menuItemName !== "Portfolio") { //portfolio is a special case that manages its own state
+          history.push(menuItemName);
         }
-      } catch(e) {}
+      }
     }
 
 
@@ -118,13 +136,11 @@ class Index extends React.Component {
   
   //Called before page is reloaded or component is unmounted
   componentCleanup() {
-    if (this.state.menu.selected.toLowerCase() !== "meme") {
-      //Preserve our state in localStorage
-      localStorageSave("ambeckercom-menuState", this.state)
-    }
-
     //Unbind hotkeys
     this.keyComboContext.disable();
+
+    //Cleanup history handler
+    this.unlistenHistory();
   }
 
   render() {
@@ -231,9 +247,10 @@ class Index extends React.Component {
       return this.state.menu.options[idx] || false;
     };
   
-    nameToMenuIdx = (name) => {
+    nameToMenuIdx = (name) => { 
+      if (typeof(name) !== "string") return false;
       for (let i = 0; i < this.state.menu.options.length; i++) {
-        if (this.state.menu.options[i][0].toLowerCase() == name.toLowerCase())
+        if (this.state.menu.options[i][0].toLowerCase() === name.toLowerCase())
           return i;
       }
   
