@@ -34,7 +34,7 @@ Then, over the coming few weeks, I wrote out all the equations covering the brak
 
 Below is the analysis of the entire braking system, including the bias bar, which would be implemented in Matlab:
 
-![Brake analysis](brakeAnalysis.pdf)
+![Brake analysis](BrakeAnalysis.pdf)
 
 After the analysis by hand was complete, I programmed it into Matlab to give me results quickly, and allow me to test a number of different parameters and options quickly.
 
