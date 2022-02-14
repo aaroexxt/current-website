@@ -28,9 +28,11 @@ function About(props) {
       <br />
       <br />
       <span>
-        Welcome to my website! I'm currently an undergraduate student at MIT pursuing a B.S. in Mechanical Engineering with a minor in Computer Science. <br /> From highschool robotics to MIT's Formula SAE team, I’ve demonstrated my capacity to conduct advanced technical work on a team or in a self-directed fashion.
+        Welcome to my website! I'm currently an undergraduate student at MIT pursuing a B.S. in Mechanical Engineering with a minor in Computer Science.
+        <br />
+        From highschool robotics to MIT's Formula SAE team, I’ve demonstrated my capacity to conduct advanced technical work on a team or in a self-directed fashion.
       </span>
-      <p>Check out my <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Portfolio")}}>portfolio</a> or <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Resume")}}>resume</a> by using the tabs above, and don't hesitate to reach out to <a target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a> if you have any questions.</p>
+      <p>Check out my <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Portfolio")}}>portfolio</a> or <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Resume")}}>resume</a> by using the tabs above, and don't hesitate to reach out to me by visiting my <a href="#" onClick={(e) => {e.preventDefault(); pageChange("Contact")}}>contact</a> page or directly at <a target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a> if you have any questions.</p>
 
       <div className="about-text">
         <img width="50px" height="50px" src="content/github.png"></img>

@@ -14,6 +14,7 @@ import NavFooter from "./NavFooter.jsx";
 import Portfolio from './portfolio.jsx';
 import Resume from "./resume.jsx";
 import About from './about.jsx';
+import Contact from './contact.jsx';
 import Meme from './meme.jsx';
 
 //Util functions
@@ -46,7 +47,8 @@ class Index extends React.Component {
         options: [
           ["Portfolio", true], //name, enabled
           ["About", true],
-          ["Resume", true]
+          ["Resume", true],
+          ["Contact", true]
         ],
         selected: 0
       }
@@ -159,6 +161,15 @@ class Index extends React.Component {
             filename="content/resume.pdf"
             saveFilename="AaronBeckerResume.pdf"
           />
+        )
+        break;
+
+      /*********
+       * Contact Page
+       */
+       case this.nameToMenuIdx("Contact"):
+        content = (
+          <Contact/>
         )
         break;
 
