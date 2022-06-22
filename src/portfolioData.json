@@ -22,11 +22,11 @@
         },
         {
             "dirPrefix": "ZingDrones",
-            "image": "hermesLaunch.jpg",
-            "title": "Student Team - MIT Rocket Team",
-            "description": "Implementing reliable software control of a high-g-accelerometer using a RTOS",
-            "date": "Fall - Winter 2022",
-            "markdown": "rt.md",
+            "image": "assemTop.jpg",
+            "title": "Zing Drones",
+            "description": "Tightly integrated winch delivery system for packages; CAD, Code, and Motor Driver",
+            "date": "Winter - Summer 2022",
+            "markdown": "zing.md",
 
             "category": "Recent & Relevant"
         },
