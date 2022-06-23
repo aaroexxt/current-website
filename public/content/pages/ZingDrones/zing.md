@@ -1,54 +1,82 @@
-In Fall 2021, I developed an ARM M0-based flight computer that I codenamed Zenith.
-It was purpose-built was to do real-time control of thrust vectored model rockets. Onboard, there are a number of sensors, including a 9dof IMU and GPS for localization, packet radio for telemetry, flash and SD card for data logging. Throughout the entire project, I had to carefully optimize my bill of materials and board layout for ease of use and assembly. I also put myself on an extremely strict deadline, only 6 weeks for everything from planning launch sites to putting together 3 rockets.
-(Click to zoom on any image)
+During the Spring 2022 semester, I was hired by [Zing Drone Delivery](zingdrones.com) in order to design a custom winch system for delivering packages quickly and reliably via drone. Solving this problem took several months of time between classes as well as a lot of iterating to converge on a successful design. Hopefully, by the end of this document, you understand a little bit more about the process the team at Zing and I used in order to complete the project.
 
-**Bottom: Flight Computer, Top: Ground Station (868MHz telemetry antennas left)**
+**Note: I was the sole engineer working on this project, so all of the work you see below was designed by me.**
 
-![Zenith finalized ground station and flight computer](zenithAssembled.jpg)
+Here was the final design, as a rendering! Real hardware does exist, but I can't show it.
 
-As I was putting the boards together, I also assembled 3 complete TVC-capable rockets before launch in my garage (pictured in background, TIG welder and electric bike!)
-They included a thrust-vectoring mount capable of swivelling the solid rocket motor several degrees in any axis to adjust the trajectory of the vehicle on the fly.
+![Rendering!](renderingFront.png)
 
-**Rockets Before Launch**
+## Ideating
 
-![Rockets assembled in my garage](rocketsBLaunch.jpeg)
+We started with establishing an initial set of product requirements, which included parameters for height, weight, and battery life.
+I then came up with a document that described the planned electrical system, software stack, and even some initial "hand calculations" to get an estimate for mechanical loadings that would accomplish all of these objectives:
 
-![Mission starts now!](zenithMissionToMars.jpg)
+![Planning document, demonstrating architecture](PlannedSystemArchitecture.pdf)
 
-I also tested the rockets before I left using a custom 3D printed fitting for the TVC mount which let me add a known amount of thrust using commercial drone propellers. Here you can see a test on the X and Z axes (in body frame, 0-10deg) in which the mount is gimballed.
+## Prototyping
 
-![TVC testing](tvcTesting.mp4)
+After several weeks of iterating more fully on these concepts, electrical design began in earnest with designing a layout in PCB design software Eagle. 
 
-When I got to the launch site, I used a custom 3D printed gimbal to tune the PID loops controlling the throttle, which were attached at the rocket's center of mass (exactly where the rocket was also pivoting around in flight) and adjusted the parameters until it was able to stabilize itself.
+This process was also complicated by serious supply issues, in that we needed to be assembling and testing a prototype quickly, while different parts were going in and out of stock. In the end, I settled on a fairly modular design that allowed quick component swappage in the event of a shortage, and actually designed two completely seperate versions incorporating different motor drive circuitry to allow some ordering headroom.
 
-**Rocket at launch site in tuning setup**
+Below is an old version of the schematic (new one is much more complex) to show the different components laid out categorically.
+![Initial Schematic of Winch PCB](schematic.png)
 
-![Rockets at launch site in tuning gimbal setup](rocketALaunch.jpg)
+At the same time as I was making and iterating the schematic, I also build a hardware prototype to validate the design decisions that were made and test an actual motor with the 3d printed parts and system. To do this, I used a proto-board, some wire, and all the patience I had in a 8-hour marathon of soldering, testing, and debugging.
+All the parts on the board were also COTS (commercial off-the-shelf) from Pololu, which removed the work of debugging the modules themselves which would have been needed with a fully custom design.
 
-The TVC mount was further refined using this gimbal setup which let me run the entire control feedback system in real time.
+![Prototype top view](protoTop.jpg)
+![Prototype bottom view](protoBottom.jpg)
 
-![Garage gimballing](gimbalTesting.mp4)
+After constructing the prototype and showing it to the team, a lot of feedback was received which informed the rest of the design as well as the continually evolving PCB design.
 
-## PCB Renderings
+## EE Production
 
-Before the boards were assembled, I also rendered out views of the board from my PCB design program of choice, EAGLE, before assembling them by hand.
-Note that both of these boards are 4-layer, 1oz copper thickness, and 4mil minimum trace width.
-(Click to zoom on any image)
+Once the prototype was made, focus was on producing the PCB version of the design.
 
-**Zenith Top**
+Most PCBs of the complexity that we were working with are 4-layer, meaning that they have 4 internal layers that you can route traces on. However, to save cost, I spent a lot of design time making the PCB 2-layer instead of 4. This led to some really beautiful trace routing to make the most of the available space.
 
-![Zenith layout rendered, top view](zenithTop.png)
+Also, I performed simulations in LTSpice (not shown) to get some experimental data for design decisions like a reverse polarity protection circuit.
 
-**Zenith Bottom**
+After all was said and done, here are renderings from our vendor:
 
-![Zenith layout rendered, bottom view](zenithBottom.png)
+![Render of PCB, top](renderTop.png)
+![Render of PCB, bottom](renderBottom.png)
 
-The ground station was given a similar treatment before it was also assembled:
+Then, it was just a matter of spending many hours assembling, testing, and debugging the full system.
 
-**Ground Station Top**
+![Assembled PCB, top](assemTop.jpg)
+![Assembled PCB, bottom](assemBottom.jpg)
 
-![Zenith Controller Top](controllerTop.png)
+Finally, I had an "oh my god it works!" moment when I connected it to a motor for the very first time and saw it running (at 5am, no less):
 
-**Ground Station Bottom**
+![Motor test run!](testingWinch.mov)
 
-![Zenith Controller Bottom](controllerBottom.png)
+## CAD and Production
+
+At the same time as the EE production was ongoing, the CAD design was also advancing. I also iterated very quickly here, producing many different slightly tweaked versions of the design.
+The CAD was done in Solidworks, along with calculations done by hand and with software (not shown). Take a look at my Formula SAE entry to get an idea of what hand calcs entail, but essentially I came up with specifications for the product (such as motor torque), as well as making order-of-magnitude estimates for important operating details such as bending on the main plate while under maximum load.
+Taking all of this into consideration, here was the final design:
+
+![Screenshot of Solidworks mechanical design](SWScreen.png)
+
+## Software
+
+The software was written in C++, and turned out to be far more complex than I initially thought. The reason for this, was that the motors would sometimes overheat when carrying particularly heavy packages. So I ended up having to characterize the motor, as well as make use of onboard current and RPM sensors, to estimate the internal winding temperature and limit it to a safe range.
+
+![Collected motor parameters](motorParameters.png)
+
+The thermal model used was quite simple, and worked in several discrete steps:
+- Calculate electrical energy going into motor from current and voltage sensor
+- Calculate mechanical energy out of motor into pulley from RPM sensor and torque curve from voltage characterization
+- Assume difference in electrical-mechanical was heat, and assume that the heat was applied to an estimated mass of copper that radiated heat via Newton's Law of Cooling (time constant tau also measured experimentally)
+
+This system worked quite well in preventing any overheating and ensured that the winch was always safe to operate, even in hot temperatures.
+
+![Thermal calculations code](thermalModel.png)
+
+I also employed a simple asynchronous multitasking loop to manage many different features such as driving the motors, toggling the lights, and checking battery voltage, to name a few.
+
+# Conclusion
+
+Overall, this project was a great learning experience for taking a product from the beginnings of an idea to a product that can perform under many different conditions. I definitely got a chance to practice many different kinds of engineering for this project, including PCB Design, Mechanical design and software integration throughout the whole process.

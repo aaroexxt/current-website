@@ -24,7 +24,7 @@
             "dirPrefix": "ZingDrones",
             "image": "assemTop.jpg",
             "title": "Zing Drones",
-            "description": "Tightly integrated winch delivery system for packages; CAD, Code, and Motor Driver",
+            "description": "Tightly integrated winch delivery system for packages, including custom PCB and mechanical design",
             "date": "Winter - Summer 2022",
             "markdown": "zing.md",
 
