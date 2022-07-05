@@ -1,4 +1,4 @@
-In Fall 2021, I developed an ARM M0-based flight computer that I codenamed Zenith.
+In Fall 2021 to the Spring of 2022, I developed an ARM M0-based flight computer that I codenamed Zenith.
 It was purpose-built was to do real-time control of thrust vectored model rockets. Onboard, there are a number of sensors, including a 9dof IMU and GPS for localization, packet radio for telemetry, flash and SD card for data logging. Throughout the entire project, I had to carefully optimize my bill of materials and board layout for ease of use and assembly. I also put myself on an extremely strict deadline, only 6 weeks for everything from planning launch sites to putting together 3 rockets.
 (Click to zoom on any image)
 
