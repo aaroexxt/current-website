@@ -33,9 +33,11 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "optimize": "echo 'Pulling latest optimization script from web' && curl https://raw.githubusercontent.com/aaroexxt/Website-Content-Optimizer/main/optimize.sh -o optimize.sh && chmod +x optimize.sh && echo 'Running optimization script' && ./optimize.sh -f public/content ; rm optimize.sh",
+    "optimize": "echo 'Pulling latest optimization script from web' && curl https://raw.githubusercontent.com/aaroexxt/Website-Content-Optimizer/main/optimize.sh -o optimize.sh && echo 'Running optimization script' && bash optimize.sh -f public/content ; rm optimize.sh",
+    "unoptimize": "echo 'Pulling latest optimization script from web' && curl https://raw.githubusercontent.com/aaroexxt/Website-Content-Optimizer/main/optimize.sh -o optimize.sh && echo 'Running optimization script w/unoptim enabled' && bash optimize.sh -f public/content -d ; rm optimize.sh",
     "start": "react-app-rewired start",
-    "build": "npm run optimize && react-app-rewired build",
+    "build": "npm run optimize && npm run build-only",
+    "build-only": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
