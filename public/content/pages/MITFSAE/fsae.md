@@ -2,12 +2,30 @@
 
 In 2021, I joined the MIT Formula SAE team, which has been simultanously one of the most difficult and fun things I have done yet at MIT. This page serves to highlight some of the work I've done on the team, which has been without a doubt some of the most technical and interesting, as well as challenging that I've done yet.
 
+## MY23: Front Powertrain
+
+For MY23, I'm currently the front powertrain lead, in which I'm responsible for the completed front powertrain system and ensuring that it can be tested on the car.
+
+We're not quite at the running stage yet (as of Dec 2022), but I can share some progress, which is namely creating a new revision of our front upright.
+
+We also have an updated CAD model of the car, which is shown below:
+
+![MY23 CAD Model](MY23CAD.png)
+
+These parts are ordered from a sponsor, so we need to create mechanical drawings to tell them all of the critical dimensions and functionality. An older team member had already created a drawing previously, and showed me the process of revising the drawings, in which the finalized versions are below (one for front upright, and one for custom nut that screws into upright to retain the planetary gearbox carrier):
+
+![Upright Drawing - Top](UprightDrawing-1.jpg)
+![Upright Drawing - Side](UprightDrawing-2.jpg)
+
+![Nut Drawing - Custom Threads](NutDrawing.jpg)
+
 ## MY22 Braking System
 
-This year, I'm responsible for the design and analysis of the braking system on our car.
+Last year for our MY22 car, I was responsible for the design and analysis of the braking system.
 
 Being a safety critical system, there are numerous steps to the design process to ensure that there are many redundancies built in.
 Here's an overview of our design process:
+
 - System architecture and specification
 - Simulation and force analysis
 - Load path analysis
@@ -17,6 +35,7 @@ Here's an overview of our design process:
 - Manufacturing
 
 The beginning of the process, that happened around November-December was specifying the system requirements. These were given to me, mostly from previous years as well as the FSAE rules manual of experience as:
+
 - Decelerate the car as quickly as possible
 - Maintain two redundant hydrualic loops to ensure safety
 - Be able to handle 2000N of pedal pressure
@@ -78,7 +97,6 @@ Once it was done in CAD, all that was left to do was FEA to ensure that it would
 
 ![Brake FEA setup on a different computer](brakeFEA.jpg)
 
-
 ### Hydraulic Diagrams
 
 I also worked on several hydraulic diagrams based off of previous cars, which informed the ordering of fittings.
@@ -88,7 +106,11 @@ I also worked on several hydraulic diagrams based off of previous cars, which in
 
 ### Manufacturing
 
-As of the time of writing this, the brakes have yet to be machined, so this is a work in progress!
+The brakes were also manufactured in our shop, first being waterjet from a sheet stock to a rough blank, then post-machined to the correct ID and OD before finally being sent to a vendor for grinding (to ensure parallelism and consistency of the thickness, which is critical to make sure the brake action is even).
+
+Then, they were assembled onto the car on both the front and rears:
+
+![Bottom left - brake caliper on rear upright](BrakesFromBehind.png)
 
 ## Epicyclic Gearbox
 
@@ -119,9 +141,8 @@ Finally, we tested it in a HAAS mill at 10,000 rpm for wear durability.
 
 ![Running it in the mill](gearboxPower.mov)
 
-
 ## Conclusion
 
-Even though the work on the car this year is not yet finished, I'm already extremely proud of what has already been designed. The work I've done so far has been both challenging and rewarding in the best way possible - and has formed a basis of experience that's already helped me in my classes this semester and surely beyond.
+Even though the work on MY23 is not yet finished, I'm already extremely proud of what has already been designed. The work I've done so far has been both challenging and rewarding in the best way possible - and has formed a basis of experience that's already helped me in my classes this semester and surely beyond.
 
 I also want to thank the many members on the team who have helped me through much of this work, including Levi, Jorge, Nicole, Chris, Valeriia, and many others. If any of you are reading this, thank you especially!

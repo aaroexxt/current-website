@@ -4,19 +4,19 @@
             "dirPrefix": "MITFSAE",
             "image": "carFront.jpg",
             "title": "Student Team - MIT Formula SAE",
-            "description": "Specification, dynamic and static analysis, and fabrication for MY22 braking system",
+            "description": "Specification, dynamic and static analysis, and fabrication for front powertrain and brakes",
             "date": "Fall - Present",
             "markdown": "fsae.md",
 
             "category": "Recent & Relevant"
         },
         {
-            "dirPrefix": "MITRocketTeam",
-            "image": "hermesLaunch.jpg",
-            "title": "Student Team - MIT Rocket Team",
-            "description": "Implementing reliable software control of a high-g-accelerometer using a RTOS",
-            "date": "Fall - Winter 2022",
-            "markdown": "rt.md",
+            "dirPrefix": "EMTVC",
+            "image": "topRender.png",
+            "title": "POYNT",
+            "description": "Plasma Orienting thermodYnamic magNetic Thrusters",
+            "date": "Summer 2022",
+            "markdown": "emtvc.md",
 
             "category": "Recent & Relevant"
         },
@@ -33,7 +33,26 @@
 
 
 
+        {
+            "dirPrefix": "RainIndustries",
+            "image": "RainProfile.jpg",
+            "title": "Summer at Rain Industries",
+            "description": "My time as an intern at Rain Industries!",
+            "date": "Summer 2021/2022",
+            "markdown": "rain.md",
 
+            "category": "Featured"
+        },
+        {
+            "dirPrefix": "MITRocketTeam",
+            "image": "hermesLaunch.jpg",
+            "title": "Student Team - MIT Rocket Team",
+            "description": "Implementing reliable software control of a high-g-accelerometer using a RTOS",
+            "date": "Fall - Winter 2022",
+            "markdown": "rt.md",
+
+            "category": "Featured"
+        },
         {
             "dirPrefix": "HSRobotics",
             "image": "teamPhoto2020.jpg",

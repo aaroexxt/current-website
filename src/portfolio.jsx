@@ -164,6 +164,14 @@ class ZoomableImage extends React.Component {
   }
 
   render() {
+    // Selectively render alt text if it exists
+    let alt;
+    if (this.state.oProps.hasOwnProperty("alt") && this.state.oProps.alt) {
+      alt = (<p className={(this.state.isZoomed) ? "zoomed-text imageAlt" : "imageAlt"}> {this.state.oProps.alt} </p>);
+    } else {
+      alt = null;
+    }
+
     return (
         <ControlledZoom isZoomed={this.state.isZoomed} onZoomChange={(zoomState) => {this.handleZoomChange(zoomState)}}>
           <div className={"zoom-container"}>
@@ -172,7 +180,7 @@ class ZoomableImage extends React.Component {
 
             {(!this.state.imageLoaded) ? <img src={this.state.previewSRC}/> : null}
 
-            {<p className={(this.state.isZoomed && this.state.oProps.hasOwnProperty("alt") && this.state.oProps.alt !== "") ? "zoomed-text" : null}> {this.state.oProps.alt} </p>}
+            {alt}
           </div>
         </ControlledZoom>
     );
@@ -350,8 +358,7 @@ export default class Portfolio extends React.Component {
           <div className={"markdownContainer"}>
             <ReactMarkdown
               remarkPlugins={
-                [gfm]
-                [remarkUnwrapImages]
+                [gfm, remarkUnwrapImages]
               }
               components={{img: CustomMarkdownImage}}
             >
