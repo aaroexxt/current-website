@@ -242,8 +242,6 @@ export default class Portfolio extends React.Component {
 
     this.baseURL = new URL(window.location.href).origin;
 
-    this.componentCleanup = this.componentCleanup.bind(this);
-
     this.unlistenHistory = history.listen(({ action, location }) => {
       // console.log(
       //   `The current URL is ${location.pathname}${location.search}${location.hash}`
@@ -256,16 +254,19 @@ export default class Portfolio extends React.Component {
         if (spl.length > 1) {
           for (let i=0; i<PortfolioData.projects.length; i++) {
             if (PortfolioData.projects[i].dirPrefix.indexOf(spl[1].replace("#","")) !== -1) {
-              this.handleProjectClick(PortfolioData.projects[i]);
+              //HandleProjectClick will deal with history injection
+              this.handleProjectClick(PortfolioData.projects[i], true);
               foundProject = true;
               break;
             }
           }
         }
 
+        // console.log("Popped project: "+foundProject)
+
         if (!foundProject) { //baseURL, so return to normal
-          this.setState({singleProjectView: false});
-          history.push("portfolio");
+          //HandleProjectReturn will also deal with history injection
+          this.handleProjectReturn(true);
         }
       }
     });
@@ -298,18 +299,23 @@ export default class Portfolio extends React.Component {
   }
 
   //Handle a single project being clicked to go to full screen view
-  handleProjectClick(projectData) {
+  handleProjectClick(projectData, toPop) {
     mutateState(this, {singleProjectView: true, singleProjectData: projectData, singleProjectMarkdown: "# Loading"});
     this.loadMarkdownFile(this.baseURL + "/content/pages/"+projectData.dirPrefix+"/",projectData.markdown);
 
-    history.replace("portfolio/"+projectData.dirPrefix);
+    //If toPop is defined, we're popping from history, so don't push
+    if (!toPop) {
+      history.push("portfolio/"+projectData.dirPrefix);
+    }
   }
 
   //Handle the 'return to projects view'
-  handleProjectReturn() {
+  handleProjectReturn(toPop) {
     mutateState(this, {singleProjectView: false});
 
-    history.replace("portfolio");
+    if (!toPop) {
+      history.push("portfolio");
+    }
   }
 
 
@@ -322,7 +328,7 @@ export default class Portfolio extends React.Component {
     if (urlParams.hasOwnProperty("hash")) {
       for (let i=0; i<PortfolioData.projects.length; i++) {
         if (urlParams.hash.toLowerCase().indexOf(PortfolioData.projects[i].dirPrefix.toLowerCase()) !== -1) {
-          this.handleProjectClick(PortfolioData.projects[i]);
+          this.handleProjectClick(PortfolioData.projects[i], true);
           break;
         }
       }
@@ -332,10 +338,6 @@ export default class Portfolio extends React.Component {
   componentWillUnmount() {
     this.componentCleanup();
     window.removeEventListener('beforeunload', this.componentCleanup); // remove the event handler for normal unmounting
-  }
-
-  //Called before page is reloaded or component is unmounted
-  componentCleanup() {
     //Cleanup history listeners
     this.unlistenHistory();
   }

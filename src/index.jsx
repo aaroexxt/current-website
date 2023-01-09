@@ -110,7 +110,7 @@ class Index extends React.Component {
           // console.log("URL override detected for " + this.state.menu.options[i][0]);
           mutateState(this, {menu: {selected: i}});
 
-          if (menuItemName.indexOf("Portfolio") === -1) { //portfolio is a special case that manages its own state
+          if (menuItemName.toLowerCase().indexOf("portfolio") === -1) { //portfolio is a special case that manages its own state
             history.push(menuItemName);
           }
         }
