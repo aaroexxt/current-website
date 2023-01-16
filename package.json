@@ -35,7 +35,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "optimize": "echo 'Pulling latest optimization script from web' && curl https://raw.githubusercontent.com/aaroexxt/Website-Content-Optimizer/main/optimize.sh -o optimize.sh && echo 'Running optimization script' && bash optimize.sh -f public/content ; rm optimize.sh",
     "unoptimize": "echo 'Pulling latest optimization script from web' && curl https://raw.githubusercontent.com/aaroexxt/Website-Content-Optimizer/main/optimize.sh -o optimize.sh && echo 'Running optimization script w/unoptim enabled' && bash optimize.sh -f public/content -d ; rm optimize.sh",
-    "start": "react-app-rewired start",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-app-rewired start",
     "build": "npm run optimize && set DISABLE_ESLINT_PLUGIN=true && npm run build-only",
     "build-only": "set DISABLE_ESLINT_PLUGIN=true && react-app-rewired build",
     "test": "set DISABLE_ESLINT_PLUGIN=true && react-app-rewired test",
