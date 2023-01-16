@@ -320,9 +320,6 @@ export default class Portfolio extends React.Component {
 
 
   componentDidMount() {
-    //Setup componentCleanup handler for page reload
-    window.addEventListener('beforeunload', this.componentCleanup);
-
     //Check if we have URL overrides
     const urlParams = parsePath(window.location.href);  
     if (urlParams.hasOwnProperty("hash")) {
@@ -336,8 +333,6 @@ export default class Portfolio extends React.Component {
   }
 
   componentWillUnmount() {
-    this.componentCleanup();
-    window.removeEventListener('beforeunload', this.componentCleanup); // remove the event handler for normal unmounting
     //Cleanup history listeners
     this.unlistenHistory();
   }
