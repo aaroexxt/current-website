@@ -32,7 +32,16 @@
         },
 
 
+        {
+            "dirPrefix": "TeensyESC",
+            "image": "main.png",
+            "title": "TeensyESC",
+            "description": "Custom 2kW brushless motor controller based on the IMXRT1062 (Teensy 4.1) and Trinamic TMC6200 gate drivers",
+            "date": "Winter 2023",
+            "markdown": "esc.md",
 
+            "category": "Featured"
+        },
         {
             "dirPrefix": "RainIndustries",
             "image": "RainProfile.jpg",
