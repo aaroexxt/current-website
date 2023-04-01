@@ -4,9 +4,12 @@ In 2021, I joined the MIT Formula SAE team, which has been simultanously one of 
 
 ## MY23: Front Powertrain
 
-For MY23, I'm currently the front powertrain lead, in which I'm responsible for the completed front powertrain system and ensuring that it can be tested on the car.
+For MY23, I'm currently the front powertrain lead, in which I'm responsible for the completed front powertrain system and ensuring that it can be tested on the car. This includes our
 
-We're not quite at the running stage yet (as of Dec 2022), but I can share some progress, which is namely creating a new revision of our front upright.
+Update March 2023: The car is now in the testing phase! Some pictures are shown below:
+
+![MY23 on the track!](my23_track_1.jpg)
+![Another angle :)](my23_track_2.jpg)
 
 We also have an updated CAD model of the car, which is shown below:
 
@@ -140,6 +143,26 @@ Finally, we tested it in a HAAS mill at 10,000 rpm for wear durability.
 ![HAAS control panel with power dissapation and RPM shown](loadsAndTesting.jpg)
 
 ![Running it in the mill](gearboxPower.mov)
+
+## Carriers
+
+I also did 4th-axis machining of the carriers, of which there are some photos below:
+
+![Carrier on 4th axis](carrier_machining.jpg)
+
+![Carrier after machining](carrier_postmachine.jpg)
+
+![Carrier installed into upright](carrier_installed.jpg)
+
+**Go see my full post on the carriers, as well as other machining projects, [here](#portfolio/MachiningChallenge).**
+
+## Testing
+
+With MY23, there's also been some testing that we've been doing:
+
+![Car on jacks](car_on_jacks.jpg)
+
+![Car being tested for the first time!](car_night_testing.jpg)
 
 ## Conclusion
 

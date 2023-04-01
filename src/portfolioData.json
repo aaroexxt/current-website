@@ -2,7 +2,7 @@
     "projects": [
         {
             "dirPrefix": "MITFSAE",
-            "image": "carFront.jpg",
+            "image": "my23_track_1.jpg",
             "title": "Student Team - MIT Formula SAE",
             "description": "Specification, dynamic and static analysis, and fabrication for front powertrain and brakes",
             "date": "Fall - Present",
@@ -32,6 +32,16 @@
         },
 
 
+        {
+            "dirPrefix": "MachiningChallenge",
+            "image": "carrier_dialing.jpg",
+            "title": "Machining Challenges",
+            "description": "Designing and manufacturing difficult parts, showcasing various machining techniques",
+            "date": "Fall-Spring 2023",
+            "markdown": "challenge.md",
+
+            "category": "Featured"
+        },
         {
             "dirPrefix": "TeensyESC",
             "image": "main.png",
