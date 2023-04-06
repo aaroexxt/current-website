@@ -1,11 +1,9 @@
-import { Viewer, Worker } from '@react-pdf-viewer/core';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import {PDFViewer as NativePDFViewer} from 'pdf-viewer-reactjs';
 
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import 'bulma/css/bulma.css';
+import 'material-design-icons/iconfont/material-icons.css';
 
 export default function PDFViewer(props) {
-    const defaultLayoutPluginInstance = defaultLayoutPlugin(); //keeps track of state
     const openLinkInNewTab = (e) => {
         e.preventDefault();
         if (e.target.tagName.toLowerCase() === 'a') {
@@ -14,14 +12,11 @@ export default function PDFViewer(props) {
     }
 
     return (
-        <Worker workerUrl="pdf.worker.js">
-            <div className={props.class}>
-                <Viewer
-                    fileUrl={props.filename}
-                    plugins={[defaultLayoutPluginInstance]}
-                    onClick={openLinkInNewTab}
-                />
-            </div>
-        </Worker>
+        <NativePDFViewer
+            document={{
+                url: props.filename,
+                onDocumentClick: openLinkInNewTab
+            }}
+        />
     )
 }
