@@ -1,0 +1,118 @@
+@keyframes loading-animate{
+  0%{
+      background-position-x:0
+  }
+  to{
+      background-position-x:200%
+  }
+}
+.react-pdf__message{
+  max-width:400px;
+  width:90vw;
+  aspect-ratio:1 / 1.4142;
+  text-align:center
+}
+.react-pdf__message--loading{
+  background:linear-gradient(125.75deg,white 0%,var(--gray) 33%,white 66%,var(--gray) 100%);
+  background-size:200% 100%;
+  animation-name:loading-animate;
+  animation-duration:1s;
+  animation-iteration-count:infinite;
+  animation-timing-function:linear;
+  font-size:0
+}
+.react-pdf__Document{
+  border-radius:var(--rounded-corners-large);
+  max-width:100%;
+  height: auto;
+  position:relative;
+  background-color:#fff;
+  overflow:hidden
+}
+.react-pdf__Document:hover .page-controls{
+  opacity:1
+}
+
+.react-pdf__Page__annotations {
+  display: none;
+}
+.react-pdf__Page.rendering{
+  position:absolute!important;
+  background-color:transparent!important;
+  opacity:0;
+  z-index:-1
+}
+.react-pdf__Page.departuring{
+  opacity:.5;
+  transition:opacity ease-in-out .2s
+}
+.react-pdf__Page__canvas{
+  height:auto;
+  display:block;
+  background-color:#fff
+}
+.page-controls{
+  position:absolute;
+  bottom:5%;
+  left:50%;
+  background:white;
+  opacity:0;
+  transform:translate(-50%);
+  transition:opacity ease-in-out .2s;
+  box-shadow:var(--shadow);
+  border-radius:var(--rounded-corners);
+  z-index:2
+}
+.page-controls span{
+  font:inherit;
+  font-size:.8em;
+  padding:0 .5em
+}
+.page-controls button{
+  width:44px;
+  height:44px;
+  background:white;
+  border:0;
+  font:inherit;
+  font-size:.8em;
+  border-radius:var(--rounded-corners)
+}
+.page-controls button:enabled:hover{
+  cursor:pointer
+}
+.page-controls button:enabled:hover,.page-controls button:enabled:focus{
+  background-color:#e6e6e6
+}
+.page-controls button:first-child{
+  border-top-right-radius:0;
+  border-bottom-right-radius:0
+}
+.page-controls button:last-child{
+  border-top-left-radius:0;
+  border-bottom-left-radius:0
+}
+.pdf-container {
+  width:90%;
+  max-width:1110px;
+  margin-top:calc(var(--component-height) / -2);
+  margin-bottom:4em;
+  margin-left:auto;
+  margin-right:auto;
+  display:flex;
+  justify-content:center;
+  font-size:19px
+}
+.pdf-container>*{
+  box-shadow:var(--shadow)
+}
+:root{
+  --white: #ecf0f2;
+  --blueish-white: #f8fafc;
+  --gray: #dee4f0;
+  --orange: #e74c3c;
+  --purple: #78378c;
+  --blue: #3c91e7;
+  --shadow: 0 30px 40px 0 rgba(16, 36, 94, .2);
+  --rounded-corners: 4px;
+  --rounded-corners-large: 8px
+}

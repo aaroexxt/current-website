@@ -8,8 +8,6 @@ import withStyles from '@mui/styles/withStyles';
 
 import PDFViewer from "./PDFViewer.jsx";
 
-import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
-
 const styles = (theme) => ({
     root: {
       flexGrow: 1,
@@ -62,14 +60,8 @@ class Resume extends React.Component {
         mutateState(this, {downloading : false});
     };
 
-    componentWillUnmount() {
-        clearAllBodyScrollLocks();
-    }
-
     componentDidMount() {
         this.targetElement = document.querySelector('#resumeContainer');
-        window.scrollTo(0, 0);
-        disableBodyScroll(this.targetElement);
     }
 }
 
