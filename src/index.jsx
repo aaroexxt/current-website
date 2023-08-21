@@ -120,9 +120,9 @@ class Index extends React.Component {
 
     //Easter egg
     let egg = [
-      "              /| ________________",
-      "O|===|* >________________>",
-      "             \\|",
+      "    /|",
+      "O|===|* >⎶⎶⎶⎶⎶⎶⎶⎶⎶⎶⎶⌦",
+      "    \\|",
       "easter egg: up up down down left right left right b a"
     ];
 
