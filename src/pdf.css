@@ -33,6 +33,10 @@
   opacity:1
 }
 
+.react-pdf__Document.hide-document {
+  display: none;
+}
+
 .react-pdf__Page__annotations {
   display: none;
 }
@@ -53,7 +57,7 @@
 }
 .page-controls{
   position:absolute;
-  bottom:5%;
+  top:5%;
   left:50%;
   background:white;
   opacity:0;
