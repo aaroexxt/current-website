@@ -1,21 +1,31 @@
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 
-const styles = (theme) => ({
-  root: {
+const PREFIX = 'about';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     paddingLeft: "10vw",
     paddingRight: "10vw",
     fontSize: "1.5vw"
   }
-});
+}));
 
 function About(props) {
-  const { classes, pageChange } = props;
+  const {  pageChange } = props;
   window.scrollTo(0, 0);
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <h6 className="title">About me!</h6>
       <center>
           <img
@@ -48,12 +58,12 @@ function About(props) {
         <span>Finally, here's my <a href="https://www.linkedin.com/in/aaron-m-becker/" rel="noreferrer" target="_blank">LinkedIn</a> for information on jobs and internships.</span>
       </div>
       <br />
-    </div>
+    </Root>
   );
 }
 
 About.propTypes = {
   classes: PropTypes.object.isRequired
 };
-    
-export default withStyles(styles)(About);
+
+export default (About);

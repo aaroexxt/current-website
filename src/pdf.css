@@ -120,3 +120,82 @@
   --rounded-corners: 4px;
   --rounded-corners-large: 8px
 }
+
+.react-pdf__Page__canvas {
+  display: block;
+  user-select: none;
+}
+
+.react-pdf__Page__textContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.react-pdf__Page__textContent span {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+  letter-spacing: -0.001em; /* Adjust as needed */
+  line-height: 1.05;      /* Adjust as needed */
+  font-kerning: auto;
+}
+
+.react-pdf__Page__textContent {
+  z-index: 2;
+}
+.react-pdf__Page__canvas {
+  z-index: 1;
+}
+
+.page-controls-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.page-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.control-button {
+  color: black;
+}
+
+.button-disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.search-label {
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.search-input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}

@@ -1,13 +1,50 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 
-import withStyles from '@mui/styles/withStyles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+
+const PREFIX = 'NavHeader';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  title: `${PREFIX}-title`,
+  subtitle: `${PREFIX}-subtitle`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.root}`]: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    position: "fixed",
+    width: "100%",
+    top: "0px"
+  },
+
+  [`& .${classes.title}`]: {
+    flexGrow: 1,
+    "paddingRight": theme.spacing(1),
+    "whiteSpace": "nowrap",
+    "paddingTop": theme.spacing(1)
+  },
+
+  [`& .${classes.subtitle}`]: {
+    flexGrow: 1,
+    "paddingRight": theme.spacing(1),
+    "whiteSpace": "nowrap",
+    "paddingTop": theme.spacing(1),
+    "paddingBottom": theme.spacing(1)
+  }
+}));
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,29 +79,6 @@ function a11yProps(index) {
   };
 }
 
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    position: "fixed",
-    width: "100%",
-    top: "0px"
-  },
-  title: {
-    flexGrow: 1,
-    "padding-right": theme.spacing(1),
-    "white-space": "nowrap",
-    "padding-top": theme.spacing(1)
-  },
-  subtitle: {
-    flexGrow: 1,
-    "padding-right": theme.spacing(1),
-    "white-space": "nowrap",
-    "padding-top": theme.spacing(1),
-    "padding-bottom": theme.spacing(1)
-  }
-});
-
 class NavHeader extends React.Component {
   generateTabs() {
     let tabs = []
@@ -77,10 +91,16 @@ class NavHeader extends React.Component {
   }
 
   render() {
-    const {classes} = this.props;
-    
     return (
-      <div className={classes.root}>
+      <Root className={classes.root} sx={{
+        flexGrow: 1,
+        bgcolor: "background.paper",
+        position: "fixed",
+        width: "100%",
+        top: "0px",
+        zIndex: 999,
+        opacity: 0.95
+      }}>
         <AppBar position="static" color="inherit">
           <Toolbar>
               <Typography className={classes.title} variant="h4">
@@ -102,13 +122,9 @@ class NavHeader extends React.Component {
             </Tabs>
           </Toolbar>
         </AppBar>
-      </div>
+      </Root>
     );
   }
 }
 
-NavHeader.propTypes = {
-  classes: PropTypes.object.isRequired
-}
-
-export default withStyles(styles)(NavHeader);
+export default (NavHeader);

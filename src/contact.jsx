@@ -1,22 +1,32 @@
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import ReactContactForm from "./emailForm.jsx"
 
-const styles = (theme) => ({
-  root: {
+const PREFIX = 'contact';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     paddingLeft: "10vw",
     paddingRight: "10vw",
     fontSize: "1.5vw"
   }
-});
+}));
 
 function Contact(props) {
-  const { classes } = props;
+  const { } = props;
   window.scrollTo(0, 0);
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
         <h6 className="title">Contact me!</h6>
 
         <span>If you're interested in reaching out to discuss an opportunity, or just want to say hi, I'd love to hear from you!</span>
@@ -30,12 +40,12 @@ function Contact(props) {
 
       <h3>Use the form below to send me a message via email:</h3>
       <ReactContactForm to="ambecker@mit.edu" />
-    </div>
+    </Root>
   );
 }
 
 Contact.propTypes = {
   classes: PropTypes.object.isRequired
 };
-    
-export default withStyles(styles)(Contact);
+
+export default (Contact);
