@@ -22,7 +22,6 @@ export default function PDFViewer(props) {
     //Custom text renderer
     const textRenderer = useCallback(
         (textItem) => {
-            console.log(textItem)
             return `<span>${highlightPattern(textItem.str, searchText)}</span>`;
         },
         [searchText]

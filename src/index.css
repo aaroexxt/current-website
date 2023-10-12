@@ -15,8 +15,16 @@ code {
 }
 
 .about-headshot {
-  border: 2px solid #44d;
+  border: 3px solid rgba(68, 68, 221, 0.9);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 6px 25px rgba(0, 0, 0, 0.5);
   border-radius: 50%;
+  max-width: 100%;
+}
+
+@media (min-width: 992px) {
+  .about-headshot {
+    width: 30%; /* or any other value less than 100% */
+  }
 }
 
 .footer {
@@ -29,13 +37,13 @@ code {
 
 .title {
   font-size: 2em;
-    text-align: center;
-    color: black;
-   -webkit-text-fill-color: #858282; /* Will override color (regardless of order) */
-   -webkit-text-stroke-width: 1px;
-   -webkit-text-stroke-color: black;
-    font-weight: 400;
-    margin: 0 0 0.5em 0; /* Bottom margin */
+  text-align: center;
+  color: black;
+  -webkit-text-fill-color: #858282;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  font-weight: 400;
+  margin: 0 0 0.5em 0;
 }
 
 .content {
@@ -43,62 +51,47 @@ code {
   padding-bottom: 2em;
 }
 
-.resumePDFViewer {
-  width: 70%;
+.resumePDFViewer, .portfolioPDFViewer {
+  width: 90%;
   height: 80vh;
-}
-
-.portfolioPDFViewer {
-  width: 70%;
-  height: 80vh;
+  [breakpoints.up('md')]: {
+    width: 70%;
+  }
 }
 
 .markdownContainer {
-  width: 60%;
+  [breakpoints.up('md')]: {
+    width: 60%;
+  }
 }
 
 :root {
   --media-max-height: 30vw;
 }
 
-div.markdownContainer img:not(:fullscreen) {
+div.markdownContainer img:not(:fullscreen),
+div.markdownContainer .video-react:not(:fullscreen),
+div.markdownContainer source:not(:fullscreen) {
   height: var(--media-max-height);
 }
 
-div.markdownContainer .video-react:not(:fullscreen) {
-  height: var(--media-max-height) !important;
-}
-
-div.markdownContainer source:not(:fullscreen) {
-  height: var(--media-max-height) !important;
-}
-
-div.markdownContainer ul,ol {
+div.markdownContainer ul, ol {
   text-align: left;
   list-style-position: inside;
 }
 
-/* We can't distinguish between a p and imagealt, so we have to use a class */
-.imageAlt {
+.imageAlt, div.markdownContainer p {
   text-align: center !important;
 }
 
-/* Instead of a class, we can find p tags that are direct children of div.markdownContainer and on hover change parameters */
 .markdownContainer div:hover p {
   opacity: 1;
-  text-align: center;
-}
-
-div.markdownContainer p {
-  text-align: left;
-  display: block;
-  overflow-wrap: break-word;
-  line-height: 1.8;
-  text-rendering: geometricPrecision;
 }
 
 .portfolioViewContainer {
   font-size: 1.25em;
+  margin-left: 2.5em !important;
+  margin-right: 2em !important;
 }
 
 .zoom-container {
@@ -118,16 +111,14 @@ iframe {
 .zoom-container p {
   position: absolute;
   width: 100%;
-  padding: 5px 0 5px 0;
+  padding: 5px 0;
   bottom: 0px;
   left: 0px;
   color: black;
-  background: rgba(255, 255, 255, 0.6 );
-  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
   font-weight: bold;
-  font-size: 1.5vw; /* For mobile responsive layout */
+  font-size: 1.5vw;
   opacity: 0;
-
   transition: visibility 0s, opacity 0.1s linear;
 }
 
@@ -139,11 +130,30 @@ iframe {
   display: none !important;
 }
 
-.about-text {
+.about-text, .contact-text, .contact-text {
   display: flex;
-  align-items: center;
+  align-items: center; /* Vertically center-align the children */
+  justify-content: flex-start;
+  gap: 8px;
 }
 
-.about-text img {
-  padding-right: 15px;
+.about-text img, .contact-text img, .contact-text img {
+  display: block; /* Convert the image to block-level */
+  flex: 0 0 auto;
+  margin-right: 15px;
+}
+
+.video-react {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.center-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.highlight {
+  color: #287cd5;
 }

@@ -86,12 +86,12 @@ class PortfolioItem extends React.Component {
           />
 
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" style={{paddingLeft: '1em', paddingRight: '1em'}}>
               {props.data.title} ({props.data.date})
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
+          </Typography>
+          <Typography variant="body2" color="text.secondary" style={{paddingLeft: '1em', paddingRight: '1em'}}>
               {props.data.description}
-            </Typography>
+          </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
@@ -288,7 +288,14 @@ export default class Portfolio extends React.Component {
 
   //Handle a single project being clicked to go to full screen view
   handleProjectClick(projectData, toPop) {
-    mutateState(this, {singleProjectView: true, singleProjectData: projectData, singleProjectMarkdown: "# Loading"});
+    mutateState(this, {
+      singleProjectView: true,
+      singleProjectData: projectData
+    });
+
+    mutateState(this, {
+      singleProjectMarkdown: "### Loading project! Hang tight...\n![](/content/loading.gif)"
+    })
     this.loadMarkdownFile(this.baseURL + "/content/pages/"+projectData.dirPrefix+"/",projectData.markdown);
 
     //If toPop is defined, we're popping from history, so don't push
@@ -331,7 +338,7 @@ export default class Portfolio extends React.Component {
       let sp = this.state.singleProjectData;
       return (
         <center className={"portfolioViewContainer"}>
-          <h1>{sp.title} ({sp.date})</h1>
+          <h1 style={{fontSize: "1.5rem"}}>{sp.title} ({sp.date})</h1>
           <Button
             onClick={(e) => {e.preventDefault(); this.handleProjectReturn()}}
             variant="outlined"
@@ -340,7 +347,7 @@ export default class Portfolio extends React.Component {
           </Button>
           <p>{sp.description}</p>
           <hr style={{width: "40%"}}></hr>
-          <div className={"markdownContainer"}>
+          <div className="markdownContainer">
             <ReactMarkdown
               remarkPlugins={
                 [gfm, remarkUnwrapImages]
@@ -391,7 +398,7 @@ export default class Portfolio extends React.Component {
         <Box sx={{ flexGrow: 1, paddingLeft: "1em", paddingRight: "1em" }}>
           {categories.map((category, index) => (
             <div key={"cat-outer-"+index}>
-              <h1>⭐ {category}</h1>
+              <h1 style={{fontSize: "1.5rem"}}>⭐ {category}</h1>
               <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 {sorted[index].map((items, index) => (
                   <Grid item xs={16} sm={8} md={4} key={"sort-inner-"+index}>

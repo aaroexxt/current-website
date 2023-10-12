@@ -187,7 +187,11 @@ class Index extends React.Component {
        */
        case this.nameToMenuIdx("Contact"):
         content = (
-          <Contact/>
+          <Contact
+            pageChange={(name) => {
+              this.handleMenuChange(null, this.nameToMenuIdx(name))
+            }}
+          />
         )
         break;
 
@@ -197,9 +201,9 @@ class Index extends React.Component {
       case "Meme":
         content = (
           <Meme
-          pageChange={(name) => {
-            this.handleMenuChange(null, this.nameToMenuIdx(name))
-          }}
+            pageChange={(name) => {
+              this.handleMenuChange(null, this.nameToMenuIdx(name))
+            }}
           />
         )
         break;
