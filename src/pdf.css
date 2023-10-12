@@ -199,3 +199,18 @@
   border: 1px solid #ccc;
   font-size: 16px;
 }
+
+@media (max-width: 768px) { /* Adjustments for tablet and mobile devices */
+  .pdf-container {
+      width: 100%;
+      overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+  }
+
+  .search-section {
+      display: none; /* Hide the search bar on smaller screens */
+  }
+
+  .react-pdf__Document {
+      max-width: 100%;
+  }
+}

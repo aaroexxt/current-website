@@ -1,11 +1,8 @@
 import React from "react";
 import { styled } from '@mui/material/styles';
-import PropTypes from 'prop-types';
-
 import { saveAs } from "file-saver";
 import Button from "@mui/material/Button";
 import mutateState from "./mutateState.jsx";
-
 import PDFViewer from "./PDFViewer.jsx";
 
 const PREFIX = 'resume';
@@ -22,9 +19,18 @@ const Root = styled('div')((
     [`&.${classes.root}`]: {
       flexGrow: 1,
       backgroundColor: theme.palette.background.paper,
-      paddingLeft: theme.spacing(20),
-      paddingRight: theme.spacing(20),
-      fontSize: "1.5em"
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      fontSize: '1rem',
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(20),
+        paddingRight: theme.spacing(20),
+        fontSize: '1.5em'
+      },
+      [theme.breakpoints.down('sm')]: {
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1)
+      }
     }
 }));
 
