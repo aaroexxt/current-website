@@ -1,31 +1,38 @@
 import AppBar from "@mui/material/AppBar"
+import { styled } from '@mui/material/styles';
 import Typography from "@mui/material/Typography"
 
 //Types and styling
 import PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
+const PREFIX = 'NavFooter';
 
-const styles = {
-    root: {
+const classes = {
+    root: `${PREFIX}-root`,
+    typography: `${PREFIX}-typography`,
+    appbar: `${PREFIX}-appbar`
+};
+
+const Root = styled('div')({
+    [`&.${classes.root}`]: {
       flexGrow: 1,
       position: "fixed",
       width: "100%",
-      bottom: "0px"
+      bottom: "0px",
+      zIndex: 999
     },
-    typography: {
+    [`& .${classes.typography}`]: {
         flexGrow: 1,
         textAlign: "center"
     },
-    appbar: {
+    [`& .${classes.appbar}`]: {
         paddingTop: "10px",
         paddingBottom: "10px"
     }
-  };
- 
+  });
+
 function NavFooter(props) {
-    const { classes } = props;
     return (
-        <div className={classes.root}>
+        <Root className={classes.root}>
             <AppBar
                 position="static"
                 color="inherit"
@@ -39,13 +46,8 @@ function NavFooter(props) {
                 Site <a target="_blank" rel="noreferrer" href="https://github.com/aaroexxt/current-website">Designed</a> by Aaron Becker, © {new Date().getFullYear()} | <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/aaron-m-becker/">LinkedIn</a> | <a target="_blank" rel="noreferrer" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a>
                 </Typography>
             </AppBar>
-        </div>
-        )
+        </Root>
+    );
 }
 
-//next, tailwind, vercel, dribbble
-NavFooter.propTypes = {
-classes: PropTypes.object.isRequired
-};
-  
-export default withStyles(styles)(NavFooter);
+export default (NavFooter);

@@ -1,8 +1,8 @@
 //Basic react deps
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 import Box from "@mui/material/Box";
-import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme } from '@mui/material/styles';
 import "./fonts/Raleway-Regular.ttf";
 import "./fonts/OpenSans-Regular.ttf";
 import "./fonts/Helvetica.ttf";
@@ -217,6 +217,7 @@ class Index extends React.Component {
                 this.state.menu.selected}
               ' :({" "}
             </h1>
+            <img src="content/dawg.png" height="400px" />
             <h3>
               Contact Aaron ASAP, as you shouldn't see this in production, at <a rel="noreferrer" href="mailto:ambecker@mit.edu" target="_self">ambecker@mit.edu</a>
             </h3>
@@ -228,9 +229,6 @@ class Index extends React.Component {
       return (
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
-            <Box className="content">
-              {content}
-            </Box>
             <NavHeader
               selected={this.state.menu.selected}
               tabs={this.state.menu.options}
@@ -239,6 +237,9 @@ class Index extends React.Component {
                 this.handleMenuChange(null, this.nameToMenuIdx("Portfolio")); //reset top menu state
               }}
             />
+            <Box className="content">
+              {content}
+            </Box>
             <NavFooter/>
           </ThemeProvider>
         </StyledEngineProvider>
@@ -260,7 +261,10 @@ class Index extends React.Component {
     };
 }
 
-ReactDOM.render( <Index />, document.getElementById('root'));
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<Index />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

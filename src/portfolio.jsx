@@ -24,9 +24,6 @@ import {
 } from 'video-react';
 import 'video-react/dist/video-react.css'; // import css
 
-//Audio support
-import ReactAudioPlayer from 'react-audio-player';
-
 //PDF support
 import PDFViewer from './PDFViewer';
 
@@ -223,8 +220,6 @@ class PlayableVideo extends React.Component {
           <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
           <VolumeMenuButton disabled />
         </ControlBar>
-
-        
       </Player>
     )
   }
@@ -243,11 +238,6 @@ export default class Portfolio extends React.Component {
     this.baseURL = new URL(window.location.href).origin;
 
     this.unlistenHistory = history.listen(({ action, location }) => {
-      // console.log(
-      //   `The current URL is ${location.pathname}${location.search}${location.hash}`
-      // );
-      // console.log(`The last navigation action was ${action}`);
-    
       if (action === "POP") { //wait for attempted url return
         let spl = window.location.hash.split("/");
         let foundProject = false;
@@ -261,8 +251,6 @@ export default class Portfolio extends React.Component {
             }
           }
         }
-
-        // console.log("Popped project: "+foundProject)
 
         if (!foundProject) { //baseURL, so return to normal
           //HandleProjectReturn will also deal with history injection

@@ -1,22 +1,32 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 
 import { saveAs } from "file-saver";
 import Button from "@mui/material/Button";
 import mutateState from "./mutateState.jsx";
-import withStyles from '@mui/styles/withStyles';
 
 import PDFViewer from "./PDFViewer.jsx";
 
-const styles = (theme) => ({
-    root: {
+const PREFIX = 'resume';
+
+const classes = {
+    root: `${PREFIX}-root`
+};
+
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.root}`]: {
       flexGrow: 1,
       backgroundColor: theme.palette.background.paper,
       paddingLeft: theme.spacing(20),
       paddingRight: theme.spacing(20),
       fontSize: "1.5em"
     }
-  });
+}));
 
 class Resume extends React.Component {
     constructor(props) {
@@ -31,9 +41,8 @@ class Resume extends React.Component {
     }
 
     render() {
-        const {classes} = this.props;
         return (
-            <div className={classes.root} id="resumeContainer">
+            <Root className={classes.root} id="resumeContainer">
                 <center>
                     <Button
                         variant="outlined"
@@ -42,15 +51,14 @@ class Resume extends React.Component {
                         >
                     Click Here to Download Resume
                     </Button>
-                    <br></br>
+                </center>
                     <br></br>
                     <PDFViewer
                         filename={new URL(window.location.href).origin+"/"+this.state.filename}
                         class={"resumePDFViewer"}
                     />
-                </center>
-            </div>
-        )
+            </Root>
+        );
     }
 
     handleResumeSave = async () => {
@@ -65,9 +73,5 @@ class Resume extends React.Component {
     }
 }
 
-Resume.propTypes = {
-    classes: PropTypes.object.isRequired
-};
-      
-export default withStyles(styles)(Resume);
+export default (Resume);
   
