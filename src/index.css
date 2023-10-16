@@ -54,14 +54,15 @@ code {
 .resumePDFViewer, .portfolioPDFViewer {
   width: 90%;
   height: 80vh;
-  [breakpoints.up('md')]: {
-    width: 70%;
-  }
 }
 
-.markdownContainer {
-  [breakpoints.up('md')]: {
-    width: 60%;
+@media (min-width: 900px) {
+  .resumePDFViewer, .portfolioPDFViewer {
+    width: 70%;
+  }
+
+  .markdownContainer {
+    width: 80%;
   }
 }
 

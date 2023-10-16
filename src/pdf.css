@@ -21,6 +21,7 @@
   animation-timing-function:linear;
   font-size:0
 }
+
 .react-pdf__Document{
   border-radius:var(--rounded-corners-large);
   max-width:100%;
@@ -212,5 +213,6 @@
 
   .react-pdf__Document {
       max-width: 100%;
+      overflow-x: auto;
   }
 }
