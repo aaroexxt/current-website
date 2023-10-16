@@ -18,10 +18,17 @@ export default function PDFViewer(props) {
     const [pageNumber, setPageNumber] = useState(1);
     const [renderError, setRenderError] = useState(false);
     const [searchText, setSearchText] = useState('');
+    const [hasText, setHasText] = useState(false);
 
     //Custom text renderer
     const textRenderer = useCallback(
         (textItem) => {
+            if (textItem.str.trim().length > 0) {
+                // console.log("pdf text",textItem.str)
+                setHasText(true);
+            } else {
+                // console.log("no pdf text")
+            }
             return `<span>${highlightPattern(textItem.str, searchText)}</span>`;
         },
         [searchText]
@@ -38,6 +45,7 @@ export default function PDFViewer(props) {
     }
 
     function changePage(offset) {
+        setHasText(false);  // Reset here
         setPageNumber(prevPageNumber => prevPageNumber + offset);
     }
 
@@ -97,16 +105,18 @@ export default function PDFViewer(props) {
                                 {">"}
                             </button>
 
-                            <div className="search-section">
-                                <input
-                                    type="search"
-                                    id="search"
-                                    className="search-input"
-                                    placeholder="Type to search..."
-                                    value={searchText}
-                                    onChange={onChange}
-                                />
-                            </div>
+                            {hasText && (
+                                <div className="search-section">
+                                    <input
+                                        type="search"
+                                        id="search"
+                                        className="search-input"
+                                        placeholder="Type to search..."
+                                        value={searchText}
+                                        onChange={onChange}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
 
