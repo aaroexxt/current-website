@@ -132,7 +132,7 @@ mirror --reverse --use-cache --verbose --only-newer --ignore-time --parallel=3 -
 bye;
 EOF
 
-echo "\n(FTP-UPLOAD 2/2) Deploy success! Files uploaded."
+echo -e "\n(FTP-UPLOAD 2/2) Deploy success! Files uploaded."
 
 fi
 
