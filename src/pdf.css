@@ -27,7 +27,7 @@
   max-width:100%;
   height: auto;
   position:relative;
-  background-color:#fff;
+  background-color: rgba(255, 255, 255, 0) !important;
   overflow:hidden
 }
 .react-pdf__Document:hover .page-controls{
@@ -43,7 +43,7 @@
 }
 .react-pdf__Page.rendering{
   position:absolute!important;
-  background-color:transparent!important;
+  background-color:rgba(255, 255, 255, 0) !important;
   opacity:0;
   z-index:-1
 }
@@ -51,11 +51,22 @@
   opacity:.5;
   transition:opacity ease-in-out .2s
 }
-.react-pdf__Page__canvas{
-  height:auto;
-  display:block;
-  background-color:#fff
+.react-pdf__Page__canvas {
+  height: auto;
+  display: block;
+  background-color: rgba(255, 255, 255, 0)  !important; /* or your specific gradient */
+  border-radius: var(--rounded-corners-large);
+  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2); /* Adjust as needed */
 }
+
+.react-pdf__Page {
+  margin-bottom: 0.5em; /* margin size */
+}
+
+.react-pdf__Page.no-margin {
+  margin-bottom: 0px !important;
+}
+
 .page-controls{
   position:absolute;
   top:5%;
@@ -125,6 +136,7 @@
 .react-pdf__Page__canvas {
   display: block;
   user-select: none;
+  pointer-events: none;
 }
 
 .react-pdf__Page__textContent {
@@ -133,7 +145,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  pointer-events: none;
 }
 
 .react-pdf__Page__textContent span {
@@ -147,6 +158,7 @@
   font-kerning: auto;
 }
 
+
 .react-pdf__Page__textContent {
   z-index: 2;
 }
@@ -157,7 +169,6 @@
 .page-controls-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
 }
 
 .page-controls {

@@ -25,7 +25,7 @@ import {
 import 'video-react/dist/video-react.css'; // import css
 
 //PDF support
-import PDFViewer from './PDFViewer';
+import PDFViewerSinglePage from './PDFViewerSinglePage';
 
 //Markdown rendering packages
 import ReactMarkdown from 'react-markdown'
@@ -114,7 +114,7 @@ const CustomMarkdownImage = props => {
 
   let pdfExtensions = ["pdf"];
   if (props.hasOwnProperty("src") && pdfExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a pdf?
-    return <PDFViewer
+    return <PDFViewerSinglePage
             filename={props.src}
             class={"portfolioPDFViewer"}
           />;
