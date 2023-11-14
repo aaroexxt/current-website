@@ -39,6 +39,11 @@ const theme = createTheme({
   }
 });
 
+//URL sanitization for history injection
+const sanitizeURL = (url) => {
+  return url.toLowerCase().replace(/\s/g,'');
+}
+
 class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +84,7 @@ class Index extends React.Component {
   handleMenuChange = (event, idx) => {
     if (idx === this.state.menu.selected) return; //make sure it's diff than what we have
     
-    history.push(this.state.menu.options[idx][0].toLowerCase());
+    history.push(sanitizeURL(this.state.menu.options[idx][0]));
 
     //Check that it's valid
     let name = this.menuIdxToName(idx);
@@ -107,7 +112,7 @@ class Index extends React.Component {
     
     if (urlParams.hasOwnProperty("hash")) {
       for (let i = 0; i < this.state.menu.options.length; i++) {
-        let menuItemName = this.state.menu.options[i][0].toLowerCase();
+        let menuItemName = sanitizeURL(this.state.menu.options[i][0]);
         if (urlParams.hash.indexOf(menuItemName) > -1) {
           // console.log("URL override detected for " + this.state.menu.options[i][0]);
           mutateState(this, {menu: {selected: i}});
@@ -279,7 +284,7 @@ class Index extends React.Component {
     nameToMenuIdx = (name) => { 
       if (typeof(name) !== "string") return false;
       for (let i = 0; i < this.state.menu.options.length; i++) {
-        if (this.state.menu.options[i][0].toLowerCase() === name.toLowerCase())
+        if (sanitizeURL(this.state.menu.options[i][0]) === sanitizeURL(name))
           return i;
       }
   
