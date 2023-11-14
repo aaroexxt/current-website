@@ -44,7 +44,7 @@ function About(props) {
         <br />
         From high school robotics to MIT's Formula SAE team, I’ve demonstrated my capacity to conduct advanced technical work on a team or in a self-directed fashion.
       </span>
-      <p>Check out my <a rel="noreferrer" href="#" onClick={(e) => { e.preventDefault(); pageChange("Portfolio") }}>portfolio</a> or <a rel="noreferrer" href="#" onClick={(e) => { e.preventDefault(); pageChange("Resume") }}>resume</a> by using the tabs above, and don't hesitate to reach out to me by visiting my <a rel="noreferrer" href="#" onClick={(e) => { e.preventDefault(); pageChange("Contact") }}>contact</a> page or directly at <a rel="noreferrer" target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a> if you have any questions.</p>
+      <p>Check out my <a rel="noreferrer" href="#" onClick={(e) => { e.preventDefault(); pageChange("Portfolio") }}>portfolio</a>, <a rel="noreferrer" href="#" onClick={(e) => { e.preventDefault(); pageChange("Slide Summary") }}>slide summary</a> or <a rel="noreferrer" href="#" onClick={(e) => { e.preventDefault(); pageChange("Resume") }}>resume</a> by using the tabs above, and don't hesitate to reach out to me by visiting my <a rel="noreferrer" href="#" onClick={(e) => { e.preventDefault(); pageChange("Contact") }}>contact</a> page or directly at <a rel="noreferrer" target="_blank" href="mailto:ambecker@mit.edu">ambecker@mit.edu</a> if you have any questions.</p>
 
       <div className="about-text">
         <img alt="GitHub logo" width="50px" height="50px" src="content/github.png"></img>

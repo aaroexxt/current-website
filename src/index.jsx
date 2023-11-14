@@ -12,7 +12,7 @@ import './index.css';
 import NavHeader from "./NavHeader.jsx";
 import NavFooter from "./NavFooter.jsx";
 import Portfolio from './portfolio.jsx';
-import Resume from "./resume.jsx";
+import PDFAsPage from "./PDFAsPage.jsx"
 import About from './about.jsx';
 import Contact from './contact.jsx';
 import Meme from './meme.jsx';
@@ -46,8 +46,10 @@ class Index extends React.Component {
     this.state = {
       menu: {
         options: [
-          ["Portfolio", true], //name, enabled
+          //name, enabled
+          ["Portfolio", true],
           ["About", true],
+          ["Slide Summary", true],
           ["Resume", true],
           ["Contact", true]
         ],
@@ -174,10 +176,30 @@ class Index extends React.Component {
        * Resume Page
        */
       case this.nameToMenuIdx("Resume"):
+        console.log("RESUME")
         content = (
-          <Resume
+          <PDFAsPage
+            key={1}
             filename="content/resume.pdf"
             saveFilename="AaronBeckerResume.pdf"
+            downloadButtonLabel="Resume"
+            displayAllPages={false}
+          />
+        )
+        break;
+
+      /*********
+       * Slidedeck Summary Page
+       */
+      case this.nameToMenuIdx("Slide Summary"):
+        console.log("SUMM")
+        content = (
+          <PDFAsPage
+            key={2}
+            filename="content/slides.pdf"
+            saveFilename="AaronBeckerSummarySlides.pdf"
+            downloadButtonLabel="Slides"
+            displayAllPages={true}
           />
         )
         break;
