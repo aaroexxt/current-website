@@ -29,9 +29,10 @@ echo "(FTP-UPLOAD 1/2) Checking for changes on the remote (this may take a while
 TMP_OUTPUT=$(mktemp)
 
 lftp <<EOF > "$TMP_OUTPUT" 2>&1
-set net:max-retries 2;
-set net:reconnect-interval-base 5;
-set net:reconnect-interval-max 5;
+set net:max-retries 20;
+set net:timeout 300;
+set net:reconnect-interval-base 10;
+set net:reconnect-interval-max 60;
 set ssl:verify-certificate no;
 open ftp://$FTP_USER:$FTP_PASS@$FTP_SERVER;
 lcd build;
@@ -102,9 +103,10 @@ fi
 if [ $UPLOAD -eq 1 ]; then
     echo "(FTP-UPLOAD 2/2) Starting upload..."
     lftp <<EOF
-set net:max-retries 2;
-set net:reconnect-interval-base 5;
-set net:reconnect-interval-max 5;
+set net:max-retries 20;
+set net:timeout 300;
+set net:reconnect-interval-base 10;
+set net:reconnect-interval-max 60;
 set ssl:verify-certificate no;
 open ftp://$FTP_USER:$FTP_PASS@$FTP_SERVER;
 lcd build;
