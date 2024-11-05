@@ -26,10 +26,15 @@ import 'video-react/dist/video-react.css'; // import css
 
 //PDF support
 import PDFViewerSinglePage from './PDFViewerSinglePage';
+import PDFAsPage from './PDFAsPage';
+
+//Audio support
+import ReactAudioPlayer from 'react-audio-player';
 
 //Markdown rendering packages
 import ReactMarkdown from 'react-markdown'
 import remarkUnwrapImages from 'remark-unwrap-images'
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import gfm from 'remark-gfm'
 import mutateState from './mutateState';
 
@@ -109,24 +114,41 @@ class PortfolioItem extends React.Component {
 const CustomMarkdownImage = props => {
   let movieExtensions = ["mp4", "webm", "ogg", "mov"];
   if (props.hasOwnProperty("src") && movieExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a movie?
-    return <PlayableVideo {...props}/>;
+    return <PlayableVideo {...props} sx={{display: "inline"}}/>;
   }
 
   let pdfExtensions = ["pdf"];
   if (props.hasOwnProperty("src") && pdfExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it a pdf?
-    return <PDFViewerSinglePage
+
+    let pdfLabel;
+    let pdfDisplayAllPages = false;
+    if (props.hasOwnProperty("alt") && props.alt) {
+      if (props.alt.indexOf("[SINGLEPAGE]") > -1 || props.alt.indexOf("[MULTIPAGE]") > -1) {
+        pdfLabel = props.alt.replace(/\[SINGLEPAGE\]|\[MULTIPAGE\]/g, "").trim();
+        if (props.alt.indexOf("[MULTIPAGE]") > -1) pdfDisplayAllPages = true;
+      } else {
+        pdfLabel = props.alt;
+      }
+    } else {
+      pdfLabel = "pdf";
+    }
+
+    return <PDFAsPage
             filename={props.src}
             class={"portfolioPDFViewer"}
+            saveFilename={"AaronBecker-"+pdfLabel.replace(/\s/g, "").trim()+".pdf"}
+            downloadButtonLabel={pdfLabel}
+            displayAllPages={pdfDisplayAllPages}
           />;
   }
 
   let audioExtensions = ["mp3", "wav", "aac", "flac", "m4a", "wma", "ogg"];
   if (props.hasOwnProperty("src") && audioExtensions.some(v => props.src.includes(v))) { //do we have a valid file extension, and is it an audio file?
-    return <ReactAudioPlayer {...props} controls/>;
+    return <ReactAudioPlayer {...props} sx={{display: "inline"}} controls/>;
   }
   
   return (
-    <ZoomableImage {...props}/>
+    <ZoomableImage sx={{display: "inline"}} {...props}/>
   )
 };
 
@@ -172,7 +194,6 @@ class ZoomableImage extends React.Component {
     return (
         <ControlledZoom isZoomed={this.state.isZoomed} onZoomChange={(zoomState) => {this.handleZoomChange(zoomState)}}>
           <div className={"zoom-container"}>
-
             <img className={(!this.state.imageLoaded) ? "invisible" : ""} onLoad={() => this.handleImgLoad()} {...this.state.oProps}/>
 
             {(!this.state.imageLoaded) ? <img src={this.state.previewSRC}/> : null}
@@ -348,11 +369,30 @@ export default class Portfolio extends React.Component {
           <p>{sp.description}</p>
           <hr style={{width: "40%"}}></hr>
           <div className="markdownContainer">
-            <ReactMarkdown
+            <ReactMarkdown  
               remarkPlugins={
                 [gfm, remarkUnwrapImages]
               }
-              components={{img: CustomMarkdownImage}}
+              components={
+                {
+                  img: CustomMarkdownImage,
+                  code(props) {
+                    const {children, className, node, ...rest} = props
+                    const match = /language-(\w+)/.exec(className || '')
+                    return match ? (
+                      <SyntaxHighlighter
+                        {...rest}
+                        children={String(children).replace(/\n$/, '')}
+                        language={match[1]}
+                      />
+                    ) : (
+                      <code {...rest} className={className}>
+                        {children}
+                      </code>
+                    )
+                  }
+                }
+              }
             >
               {this.state.singleProjectMarkdown}
             </ReactMarkdown>

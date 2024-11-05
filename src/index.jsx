@@ -188,7 +188,7 @@ class Index extends React.Component {
             filename="content/resume.pdf"
             saveFilename="AaronBeckerResume.pdf"
             downloadButtonLabel="Resume"
-            displayAllPages={false}
+            displayAllPages={true}
           />
         )
         break;

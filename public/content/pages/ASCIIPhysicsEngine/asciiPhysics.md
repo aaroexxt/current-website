@@ -8,6 +8,42 @@ Therefore, I started by building the basics of the engine, the renderer. In init
 
 Everything on the screen was some kind of shape, whether that shape was a simple rectangle or a more complex bitmap (such as a character).
 
+Outline (TODO finish updating this):
+
+- Overview - render loop, setup
+- Physical properties (physics sim trying to simulate), and how they are calculated
+  - Weight
+  - Torque
+  - Rotations/Transformations
+- Meshing and vertex tables
+- Mapping 3d object to 2d screen
+- Text engine
+- Color engine
+- Vector and angle display
+- Primitives
+  - Vectors and vector operations
+  - Points and point operations
+- Optimization
+- Z-buffer and rendering order
+- Collision checking
+
+```js
+this.coefficients = {
+  drag: 0.47,
+  staticFrictionCutoff: 0.3, //great table at https://www.school-for-champions.com/science/friction_sliding_coefficient.htm
+  kineticFriction: 0.48, //we will assume that the materials are oak on oak wood
+  rollingFriction: 0.002,
+  angularDamping: -1,
+  mu: 2, //friction
+  J: -1,
+};
+this.rotation = {
+  alpha: 0, //angular acceleration
+  omega: 0, //angular velocity
+  theta: 0, //rotation in radians
+};
+```
+
 ## The Physics
 
 For the physics portion, I also used a relatively simple system that kept track of each shape's velocity and could add to it using physical forces like gravity, drag, or a reaction force to any collision. This worked well enough for simple games, but for later versions a lot of hacks had to be put in place for the collision to work right.
@@ -29,3 +65,7 @@ which also made their way into the levels:
 # Conclusion
 
 Overall, this project was an excellent way to learn more about Javascript and building advanced games with simple hardware! Although I did end up testing it on the kindle, the framerate made it almost impossible to play.
+
+```
+
+```

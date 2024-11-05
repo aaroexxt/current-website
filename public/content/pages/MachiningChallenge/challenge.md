@@ -8,20 +8,24 @@ In engineering design, there are often two main approaches to making parts. Thes
 
 ![Additive vs. subtractive manufacturing](manuf.jpg)
 
-CNC milling, in particular, is a common subtractive manufacturing technique, where a part designed in software (CAD - computer automated design) is then run through another program called CAM (computer automated machining) which generates paths for the machine to follow to mill out the part. Designing a good part that is not only functional but also easy to manufacture requires both analysis and intuition - it must be manufacturable while also meeting all of the design requirements.
+CNC milling, in particular, is a common subtractive manufacturing technique, where a part designed in software (CAD - computer automated design) is then run through another program called CAM (computer automated machining) which generates paths for the machine to follow to mill out the part.
+
+Designing a good part that is not only functional but also easy to manufacture requires both analysis and intuition - it must be manufacturable while also meeting all of the design requirements.
 This is known as DFM (Design for Manufacturing) and DFA (Design for Assembly), which is critical to consider when designing your parts.
 Here, I will now highlight each part I made with a brief explanation of the particular challenges of each one.
 
 ## Part #1: Formula SAE Carriers
 
 The carriers are the inner part of our gearbox that attaches to the wheel. Mounted onto them are three lug studs which connect to our wheel.
-The CAM was particularly difficult because of the 4th axis. I needed to make
+The CAM was particularly difficult because of the 4th axis. I needed to make sure that the tool holder does not hit the part while it's being manufactured, which required careful attention to detail.
 I also had to write a custom "post-post" processor in Python because on the particular machine we were using, the 4th axis has a brake that has to be engaged with a special G-code command in order to take full milling loads.
+
 We started by dialing in our zeros on the 4th axis:
+
 ![Dialing the A axis zero by probing for flatness](carrier_dialing.jpg)
 ![Dialing gauge block and pins](carrier_dialing2.jpg)
 
-Then, after running, we had the pockets machined:
+Then, after running the first toolpath, we had the pockets for the planet gears machined:
 
 ![Pocketed 4th axis op](carrier_postmachine.jpg)
 
@@ -45,7 +49,11 @@ It was done in two operations, top and bottom, being careful to not crash the to
 ## Part #3: Personal Project
 
 This part was particularly difficult firstly because of the number of operations - 4 in total, on each side.
-Two of the faces also had fairly intricate geometry that required careful tuning of my chosen feeds and speeds in order to get both a nice surface finish and little chatter. I settled on a 1/2" carbide endmill for roughing, then went in with a 1/4" carbide endmill, in two passes (1 roughing pass, leaving 3 thou wall stock, then a finishing pass). This strategy worked well, although if the pockets were any deeper I would have run into trouble from tool stick-out. This problem was addressed during the design process though, as I never placed a surface's face more then 1" below the top of the part to minimize chatter. This required me to get pretty creative with how I was going to get the water to flow from the top of the part to both sides - I settled on drilling out 6 small holes in each pocket.
+
+Two of the faces also had fairly intricate geometry that required careful tuning of my chosen feeds and speeds in order to get both a nice surface finish and little chatter. I settled on a 1/2" carbide endmill for roughing, then went in with a 1/4" carbide endmill, in two passes (1 roughing pass, leaving 3 thou wall stock, then a finishing pass).
+
+This strategy worked well, although if the pockets were any deeper I would have run into trouble from tool stick-out. This problem was addressed during the design process though, as I never placed a surface's face more then 1" below the top of the part to minimize chatter. This required me to get pretty creative with how I was going to get the water to flow from the top of the part to both sides - I settled on drilling out 6 small holes in each pocket.
+
 I started with CAM and raw stock:
 
 ![NX cam view](personal_cam.jpg)

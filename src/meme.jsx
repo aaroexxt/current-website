@@ -40,6 +40,13 @@ function Meme(props) {
         &nbsp;
         <img src="content/memes/ohYeah.png" height="400px" />
         <br />
+        <h3>Sinful individuals</h3>
+        <img src="content/memes/jono.png" height="400px" />
+        <img src="content/memes/robski.png" height="400px" />
+        <br />
+        <h3>I love donuts, but not if they don't have proper GD&T</h3>
+        <img src="content/memes/d0nut.png" height="750px" />
+        <br />
         <h3>More delicious content</h3>
         <img src="content/memes/1.png" height="400px"/>
         &nbsp;

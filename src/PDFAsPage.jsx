@@ -39,8 +39,14 @@ class PDFAsPage extends React.Component {
     constructor(props) {
         super(props);
 
+        // Filename doesn't contain baseURL?
+        let needsBaseURL = false;
+        if (props.filename.indexOf("http://") == -1 && props.filename.indexOf("https://") == -1) {
+            needsBaseURL = true;
+        }
+
         this.state = {
-            filename: props.filename,
+            filename: needsBaseURL ? new URL(window.location.href).origin+"/"+props.filename : props.filename,
             saveFilename: props.saveFilename,
             downloadButtonLabel: props.downloadButtonLabel,
             displayAllPages: props.displayAllPages ? props.displayAllPages : false,
@@ -64,12 +70,12 @@ class PDFAsPage extends React.Component {
                     <br></br>
                     {this.state.displayAllPages ? 
                         <PDFViewerMultipage
-                            filename={new URL(window.location.href).origin+"/"+this.state.filename}
+                            filename={this.state.filename}
                             class={"resumePDFViewer"}
                         />
                         :
                         <PDFViewerSinglePage
-                            filename={new URL(window.location.href).origin+"/"+this.state.filename}
+                            filename={this.state.filename}
                             class={"resumePDFViewer"}
                         />
                     }

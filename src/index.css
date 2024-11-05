@@ -51,6 +51,10 @@ code {
   padding-bottom: 2em;
 }
 
+.portfolioViewContainer div {
+  display: inline;
+}
+
 .resumePDFViewer, .portfolioPDFViewer {
   width: 90%;
   height: 80vh;
@@ -81,7 +85,11 @@ div.markdownContainer ul, ol {
   list-style-position: inside;
 }
 
-.imageAlt, div.markdownContainer p {
+div.markdownContainer p, pre {
+  text-align: left;
+}
+
+.imageAlt {
   text-align: center !important;
 }
 
@@ -91,8 +99,8 @@ div.markdownContainer ul, ol {
 
 .portfolioViewContainer {
   font-size: 1.25em;
-  margin-left: 2.5em !important;
-  margin-right: 2em !important;
+  margin-left: 10vw !important;
+  margin-right: 10vw !important;
 }
 
 .zoom-container {
@@ -107,6 +115,12 @@ iframe {
 .zoom-container img, .zoom-container video {
   max-width: 100%;
   max-height: 100%;
+}
+
+/* Bugfix for code blocks */
+pre code {
+  padding: 0px !important;
+  background-color: rgb(245, 242, 240) !important;
 }
 
 .zoom-container p {
@@ -145,8 +159,12 @@ iframe {
 }
 
 .video-react {
-  width: 100% !important;
-  height: auto !important;
+  display: block !important;
+  width: auto; /* Allows width to adjust based on height for portrait videos */
+  max-width: 100%; /* Prevents overflow on wide screens */
+  /* height: auto; */
+  max-height: 80vh; /* Sets a max height to fit within the viewport */
+  margin: 0 auto; /* Centers the video */
 }
 
 .center-button {

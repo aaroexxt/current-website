@@ -80,7 +80,7 @@ export default function PDFViewerSinglePage(props) {
                 
                 <Page
                     pageNumber={pageNumber}
-                    customTextRenderer={textRenderer}
+                    // customTextRenderer={textRenderer}
                     className={"no-margin"}
                 />
 

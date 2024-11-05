@@ -1,14 +1,55 @@
 {
     "projects": [
         {
-            "dirPrefix": "MITFSAE",
-            "image": "my23_track_1.jpg",
-            "title": "Student Team - MIT Formula SAE",
-            "description": "Specification, dynamic and static analysis, and fabrication for front powertrain and brakes",
-            "date": "Fall - Present",
+            "dirPrefix": "MITFSAE2024",
+            "image": "cover.png",
+            "title": "MIT Formula SAE - MY24",
+            "description": "Talk given to MIT Mechanical Engineering department covering MY24 development",
+            "date": "Fall 2023 - Summer 2024",
             "markdown": "fsae.md",
 
             "category": "Recent & Relevant"
+        },
+        {
+            "dirPrefix": "MIT2671",
+            "image": "gfam_diag.jpg",
+            "title": "RTK GPS Characterization - MIT 2.671",
+            "description": "Characterizing RTK GPS accuracy with multiple quantitative experiments",
+            "date": "Spring 2024",
+            "markdown": "gps.md",
+
+            "category": "Recent & Relevant"
+        },
+        {
+            "dirPrefix": "MIT2009",
+            "image": "teamintro.jpg",
+            "title": "Underwater Communication - MIT 2.009",
+            "description": "Developing a custom underwater modem for diver communication",
+            "date": "Fall 2024",
+            "markdown": "dive.md",
+
+            "category": "Recent & Relevant"
+        },
+        {
+            "dirPrefix": "MIT2008",
+            "image": "yoyo.jpg",
+            "title": "Injection Molding - MIT 2.008",
+            "description": "Designing and making one hundred yoyos from scratch, and learning mass production techniques along the way",
+            "date": "Fall 2023",
+            "markdown": "yoyo.md",
+
+            "category": "Featured"
+        },
+
+        {
+            "dirPrefix": "MITFSAE2023",
+            "image": "MY23Car.jpg",
+            "title": "MIT Formula SAE - MY23",
+            "description": "Developing design requirements, dynamic and static analysis, and fabrication for a student-built racecar",
+            "date": "Fall 2021 - Summer 2022",
+            "markdown": "fsae.md",
+
+            "category": "Featured"
         },
         {
             "dirPrefix": "EMTVC",
@@ -18,7 +59,7 @@
             "date": "Summer 2022",
             "markdown": "emtvc.md",
 
-            "category": "Recent & Relevant"
+            "category": "Featured"
         },
         {
             "dirPrefix": "ZingDrones",
@@ -28,10 +69,8 @@
             "date": "Winter - Summer 2022",
             "markdown": "zing.md",
 
-            "category": "Recent & Relevant"
+            "category": "Featured"
         },
-
-
         {
             "dirPrefix": "MachiningChallenge",
             "image": "carrier_dialing.jpg",

@@ -2,7 +2,7 @@
 
 One of my first ever projects was a bike computer to track the distace and time it took me to get to my middle school each day.
 
-This portfolio post serves to highlight the journey of creating, testing and deploying my first advanced technical projects.
+This portfolio post serves to highlight the journey of creating, testing and deploying my first advanced technical project.
 
 Version 1 of the bike computer was a simple piece of protoboard with an Arduino Nano soldered on along with a few peripherals. Its method for measuring speed and distance were also relatively simple; I had a hall effect sensor on the back tire along with a magnet that passed by once per revolution.
 By measuring the time between revolutions, and using a known tire diameter, I could extrapolate the speed of the tire. By adding up that speed over a time, I could make a (good) estimation of the distance travelled. And this system worked, too - I was able to get the same accuracy as a commercial bike meter my dad was using!
@@ -48,4 +48,4 @@ And finally, deployed:
 
 # Conclusion
 
-Overall, this project was a fantastic foray into the world of microcontrollers and 3D design. Between designing for the outdoors (hint: hot glue!) and learning about rechargeable batteries, it set the stage for many future projects and in fact was incorporated into the electric EBike built a few years later.
+Overall, this project was a fantastic foray into the world of microcontrollers and 3D design. Between designing for the outdoors (hint: hot glue!) and learning about rechargeable batteries, it set the stage for many future projects. A more advanced version of the design was in fact incorporated into the electric EBike built a few years later.
